@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Velo'V</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet"/>
+  </head>
+<body>
+  <header>
+    <h1>Velo'v</h1>
+    <div id="icone">
+      <i class="fa fa-bicycle fa-2x"></i>
+    </div>
+    <p>La plateforme interactive de location de vélos pour Lyon</p>
+  </header>
+
+    <!-- SECTION SLIDER -->
+<section id="haute">
+  <div id="heure"></div>
+  <div id ="carrousel">
+    <ul>
+      <li class="slide">
+        <figure>
+          <img src="images/velov1.jpg" alt="img1">
+          <figcaption class="legende">
+            <div class="opaque">Choisissez une station sur la carte ci-dessous</div>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="slide hide">
+        <figure>
+          <img src="images/velov2.jpg" alt="img2">
+          <figcaption class="legende">
+            <div class="opaque">Consultez ses informations</div>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="slide hide">
+        <figure>
+          <img src="images/velov3.jpg" alt="img3">
+          <figcaption class="legende">
+            <div class="opaque">Remplissez et signez votre réservation</div>
+          </figcaption>
+        </figure>
+      </li>
+      <li class="slide hide">
+        <figure>
+          <img src="images/velov4.jpg" alt="img4">
+          <figcaption class="legende">
+            <div class="opaque">Vous avez vingt minutes pour récupérer votre vélo</div>
+          </figcaption>
+        </figure>
+      </li>
+    </ul>
+  <div id="arrow-left">
+    <button id="prev">
+      <i class="fa fa-caret-left"></i>
+    </button>
+  </div>
+  <div id="arrow-right">
+    <button id="next">
+      <i class="fa fa-caret-right"></i>
+    </button>
+  </div>
+  <div id="pause">
+    <button id="stop">
+      <i class="fa fa-pause"></i>
+    </button>
+  </div>
+  <div id="lecture">
+    <button id="play">
+      <i class="fa fa-play"></i>
+    </button>
+  </div>
+  </div>
+</section>
+
+<!-- SECTION MILIEU-->
+
+<section id="milieu">
+  <div id="infoicons">
+      <p class="infoic">
+        <img src="images/bike-icon.png" alt="img5">
+          <span>Station ouverte : au moins un vélo est disponible</span>
+        </p>
+      <p class="infoic">
+        <img src="images/pasdevelo.png" alt="img6">
+          <span>Station ouverte : aucun vélo n'est disponible</span>
+        </p>
+      <p class="infoic">
+        <img src="images/ferme.png" alt="img7">
+          <span>Station fermée</span>
+        </p>
+  </div>
+</section>
+
+<!-- SECTION MAP-->
+
+<section id="basse">
+
+    <div id="map"></div>
+
+    <div id="infoStations">
+      <span id="stationFermee"></span>
+        <ul id="listeInfos">
+          <li>
+            <span id="nomStation"></span>
+          </li>
+          <br>
+          <li>
+            <span id="city"></span>
+          </li>
+          <br>
+          <li>
+            <span id="adressStation"></span>
+          </li>
+          <br>
+          <li>
+            <span id="etatStation"></span>
+          </li>
+          <br>
+          <li>
+            <span id="placeStation"></span>
+          </li>
+          <br>
+          <li>
+            <span id="bikesAvailable"></span>
+          </li>
+          <br>
+          <li>
+            <span id="attachesDispos"></span>
+          </li>
+          </ul>
+          <input class="champs" id="reserver" type="button" value="Reserver">
+
+    </div>
+    <div id ="reservation">
+      <span id="erreur"></span>
+      <form id="formulaire">
+        <input id="nom" name="nom" class="champs" type="text" placeholder="Votre nom (obligatoire)">
+        <span id="nom_vide"></span>
+        <input id="prenom" class="champs" type="text" placeholder="Votre prénom (obligatoire)">
+        <span id="prenom_vide"></span>
+      <br>
+        <span id="signatureOb" class="champs"> Signez dans le cadre (obligatoire)</span>
+        <canvas id="canvas" class="champs"  width="270" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
+        <span id="signature_vide"></span>
+        <input class="champs" id="envoyer" type="submit" value="Envoyer">
+        <input class="champs" id="effacer" type="button" value="Effacer">
+      </form>
+      <!--  <audio autoplay id="dring" src="sonnette.wav">
+      </audio>-->
+
+</div>
+
+</section>
+<footer id="pied" >
+  <a href="#ancre" id="ancre"></a>
+      <div id ="decompte">
+        <span id="velo">
+          <i class="fa fa-bicycle fa-2x"></i>
+        </span>
+        <div id="time" class ="timer">
+          <div id="cadre">
+          <p id ="minutes"></p>
+          <p id ="secondes"></p>
+          </div>
+        </div>
+
+        <p id="nameStation"></p>
+        <p id="nomResa"></p>
+        <p id ="etat"></p>
+        <p id ="adresse"></p>
+        <input class="champs" id="annuler" type="button" value="Annuler">
+    <!--   <input type="button" value="Rafraichir" id="refresh"> -->
+    <a href="javascript:window.location.reload()" id="refresh">Recharger la page</a>
+      </div>
+</footer>
+<noscript>Merci d'activer votre JavaScript.</noscript>
+<script src="slider5.js"></script>
+<script src="map.js"></script>
+<script src="ajax.js"></script>
+
+<script src="main.js"></script>
+<script src="timer.js"></script>
+<script src="stations.js"></script>
+<script src="reservation.js"></script>
+
+<script src="signature.js"></script>
+
+
+<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDemjFYnk8WuExwDkWwCbNjvm2kl6sXGIs"></script>
+
+<script>
+let main = new Main();
+</script>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
+</body>
+</html>
