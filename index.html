@@ -137,17 +137,17 @@
 
     </div>
     <div id ="reservation">
-      <span id="erreur"></span>
-      <form id="formulaire">
-        <input id="nom" name="nom" class="champs" type="text" placeholder="Votre nom (obligatoire)">
+      <div id="erreur"></div>
+      <form id="formulaire" onsubmit="this.verifForm">
+        <input id="nom" name="nom" class="champs" required="required" minlength="2" maxlength="40" type="text" placeholder="Votre nom (obligatoire)">
         <span id="nom_vide"></span>
-        <input id="prenom" class="champs" type="text" placeholder="Votre prénom (obligatoire)">
+        <input id="prenom" class="champs" required="required" minlength="2" maxlength="40" type="text" placeholder="Votre prénom (obligatoire)">
         <span id="prenom_vide"></span>
       <br>
         <span id="signatureOb" class="champs"> Signez dans le cadre (obligatoire)</span>
         <canvas id="canvas" class="champs"  width="270" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
         <span id="signature_vide"></span>
-        <input class="champs" id="envoyer" type="submit" value="Envoyer">
+        <input class="champs" id="envoyer" name="envoi" type="submit" value="Envoyer">
         <input class="champs" id="effacer" type="button" value="Effacer">
       </form>
       <!--  <audio autoplay id="dring" src="sonnette.wav">
@@ -156,8 +156,7 @@
 </div>
 
 </section>
-<footer id="pied" >
-  <a href="#ancre" id="ancre"></a>
+<footer id="pied">
       <div id ="decompte">
         <span id="velo">
           <i class="fa fa-bicycle fa-2x"></i>
@@ -179,25 +178,15 @@
       </div>
 </footer>
 <noscript>Merci d'activer votre JavaScript.</noscript>
-<script src="slider5.js"></script>
+<script src="slider.js"></script>
 <script src="map.js"></script>
-<script src="ajax.js"></script>
-
 <script src="main.js"></script>
-<script src="timer.js"></script>
-<script src="stations.js"></script>
 <script src="reservation.js"></script>
-
 <script src="signature.js"></script>
-
-
 <script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDemjFYnk8WuExwDkWwCbNjvm2kl6sXGIs"></script>
-
-<script>
-let main = new Main();
-</script>
-
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-
+<script>
+  let main = new Main();
+</script>
 </body>
 </html>

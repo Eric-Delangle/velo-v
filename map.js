@@ -1,12 +1,32 @@
-
+// Exécute un appel AJAX GET
+// Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
+function ajaxGet(url, callback) {
+    let req = new XMLHttpRequest();
+    req.open("GET", url);
+    req.addEventListener("load", function () {
+        if (req.status >= 200 && req.status < 400) {
+            // Appelle la fonction callback en lui passant la réponse de la requête
+            callback(req.responseText);
+        } else {
+            console.error(req.status + " " + req.statusText + " " + url);
+        }
+    });
+    req.addEventListener("error", function () {
+        console.error("Erreur réseau avec l'URL " + url);
+    });
+    req.send(null);
+}
 // Creation de l'objet maMap
 class Mamap
 {
     constructor () {
 
       }
+  
       // Initialisation de la carte
  initMap() {
+
+   //setInterval( ()=> {
         // je definis la position a Lyon
             let lyon = {lat: 45.750000, lng: 4.850000};
             // La carte centree a Lyon
@@ -15,7 +35,6 @@ class Mamap
               center: lyon
             });
 
-
        ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=7f9b27baaf886205613fd37511619e7599ac0466&callback=initMap",
                function (reponse) {
                // Transforme la reponse en tableau d'objets JavaScript
@@ -23,10 +42,6 @@ class Mamap
                        let markers = [];
 
                            stations.forEach((elem)=> { // elem correspond a une station
-
-             //let statuStation = elem.status === "OPEN" ? elem.icon = "images/bike-icon.png" : elem.icon = "images/ferme.png";
-              //   let avaBike = elem.available_bikes > 0 ? elem.icon = "images/bike-icon.png" : elem.icon = "images/pasdevelo.png";
-
 
 
               // Initialise un marker
@@ -41,6 +56,8 @@ class Mamap
                  }
 
                 }
+
+
                 statuStation();
 
                        let marker = new google.maps.Marker({
@@ -61,8 +78,6 @@ class Mamap
 
         if (elem.status === "OPEN") {
 
-        //  elem.icon = statuStation();
-          console.log(statuStation);
           document.getElementById('stationFermee').innerHTML = "";
           infoStations.style.display = "block"; // au click j'affiche les infos grace a l'objet mestations
           reserver.style.display = 'block';
@@ -85,14 +100,105 @@ class Mamap
 
       })
 
-                  // fin test
   })// fin de la methode foreach
+
 
   let markerCluster = new MarkerClusterer(map, markers,
            {
             imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
          });// fin de ma variable de regroupement de markers
+
        })// fin ajaxGet
 
+
+       setInterval(this.initMap,10000);// fin de la fonction du rafraichissement toutes les 3 minutes pour les infos en temps reel
+
+
      }// fin initmap
+
+}
+
+
+
+
+// CREATION DE L'OBJET STATIONS //
+
+class Mestations
+{
+
+  constructor (status, name, address, available_bike_stands, available_bikes) {
+    this.status = status;
+    this.name = name;
+    this.address = address;
+    this.available_bike_stands = available_bike_stands;
+    this.available_bikes = available_bikes;
+    this.reservation = document.getElementById('reservation');
+    this.map = document.getElementById('map');
+    let reserver = document.getElementById('reserver');
+    let reservation = document.getElementById('reservation');
+    this.resaVelo();
+  }
+
+  resaVelo() {
+
+    let reserver = document.getElementById('reserver');
+
+        reserver.addEventListener('click', ()=> {
+
+                reservation.style.display = "block";
+                reserver.style.display = 'none';
+                reserver.currentElem = new Reservation(this.status, this.address, this.name, this.available_bikes);
+                sessionStorage.setItem('station_status',  this.status);
+                sessionStorage.setItem('station_name',  this.name);
+                sessionStorage.setItem('station_address',  this.address);
+                sessionStorage.setItem('station_available_bikes',  this.available_bikes);
+
+              });
+        }
+
+  displayElem() {
+    /*
+    let status = this.status;
+    let name = this.name;
+    let address = this.address;
+    let available_bike_stands = this.available_bike_stands;
+    let available_bikes = this.available_bikes;
+let marker = new google.maps.Marker();
+let info = marker.currentElem;
+*/
+      this.map.style.margin = "0 10px";
+      nomStation.innerHTML = "Station: " +  this.name;
+    //  sessionStorage.setItem('station',station);
+      adressStation.innerHTML = "Adresse: " +  this.address;
+    //  sessionStorage.setItem('adresse', adresse);
+      attachesDispos.innerHTML = "Places disponibles: " + this.available_bike_stands;
+    //  sessionStorage.setItem('place',place);
+      bikesAvailable.innerHTML = "Vélos disponibles: " + this.available_bikes;
+  //    sessionStorage.setItem('velo',velo);
+      this.reservation.style.display = 'none';
+console.log(this.status);
+console.log(this.name);
+console.log(this.available_bike_stands);
+
+console.log(this.available_bikes);
+
+
+
+
+       if (this.status === 'OPEN') {
+             etatStation.innerHTML = "Etat : Ouvert";
+             etatStation.style.color = '#6fd27b';
+           }
+       if (this.status === 'CLOSED') {
+            etatStation.innerHTML = "Etat : Fermé";
+            etatStation.style.color = 'red';
+            document.getElementById('stationFermee').innerHTML = "Cette station est fermée !";
+          }
+
+
+      //  setInterval(this.displayElem(marker,info),10000);
+
+
+        }
+
 }

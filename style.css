@@ -106,6 +106,7 @@ header p {
   right: -120px;
   top: 50%;
   color: #6e7170;
+  outline: 0;
 }
 #arrow-left button {
   position: absolute;
@@ -117,6 +118,7 @@ header p {
   left: -40px;
   top: 50%;
   color: #6e7170;
+  outline: 0;
 }
 
 #pause button {
@@ -130,6 +132,7 @@ header p {
   top: 70%;
   line-height: 20px;
   color: #6e7170;
+  outline: 0;
 }
 
 #lecture button {
@@ -142,6 +145,7 @@ header p {
   right: -120px;
   top: 70%;
   color: #6e7170;
+  outline: 0;
 }
 
 .hide {
@@ -267,6 +271,7 @@ span {
   font-family: sans-serif,arial;
   width: 90%;
   height: auto;
+  border: 2.5px solid #ffffff;
   border-radius: 10px 10px 10px 10px;
   background-color: #6e7170;
   color: #ffffff;
@@ -274,11 +279,6 @@ span {
   margin: 0 auto;
   padding: 10px 10px;
   text-align: center;
-}
-
-#minutes, #secondes {
-  border: 2.5px solid #ffffff;
-  border-radius: 10px 10px 10px 10px;
 }
 
 #time {
@@ -336,6 +336,11 @@ span {
   margin: 0 auto;
 }
 
+#refresh {
+  color: white;
+  text-decoration: none;
+  font-family: sans-serif,arial;
+}
 @media all and (max-width: 1024px) {  /* ipad */
 
   header h1 {
