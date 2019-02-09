@@ -5,7 +5,7 @@ class Signature
      this.envoyer = document.getElementById('envoyer');
      this.canvas = document.getElementById('canvas');
      this.context = this.canvas.getContext('2d');
-     this.isDrawing = false;
+  //   this.isDrawing = false;
      this.mouseX = 0;
      this.mouseY = 0;
      this.signed = false;
@@ -39,13 +39,14 @@ class Signature
    drawCanvas() {
      this.canvas.addEventListener("mousedown", (e) => {
        this.isDrawing = true;
-       sessionStorage.setItem('this.isDrawing', this.isDrawing);
+
        this.mouseX = e.clientX - this.canvas.getBoundingClientRect().left;
        this.mouseY = e.clientY - this.canvas.getBoundingClientRect().top;
        this.lastPosition = {
          x: this.mouseX,
          y: this.mouseY
        };
+       sessionStorage.setItem('this.isDrawing', this.isDrawing);
      });
 // declenche l'evennement quand la souris est relachee
      this.canvas.addEventListener("mouseup", () => {

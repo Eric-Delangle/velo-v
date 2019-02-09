@@ -20,9 +20,42 @@ function ajaxGet(url, callback) {
 class Mamap
 {
     constructor () {
-
+      this.finDecompte = sessionStorage.getItem('finDecompte');
+      this.infoStations = document.getElementById('infoStations');
+      this.reservation = document.getElementById('reservation');
+      this.reserver = document.getElementById('reserver');
+      this.map = document.getElementById('map');
+window.addEventListener('load', this.restartChrono());
       }
-  
+      // Ici je relance mon chrono si un rafraichissement de la page a eu lieu par mégarde pendant une reservation
+
+       restartChrono() {
+
+      console.log('faitChier');
+      console.log(this.finDecompte);
+
+            if (this.finDecompte != null) {
+
+
+                let finDecompte = new Date(sessionStorage.getItem('finDecompte'));
+                console.log(finDecompte);
+                let oupsRefresh = new Date();
+                  sessionStorage.setItem('oupsRefresh', oupsRefresh);
+              this.tempsRestant = Math.floor((finDecompte - oupsRefresh) / 1000);
+                  sessionStorage.setItem('tempsRestant', this.tempsRestant);
+
+                      this.timer = new Timer().startTimer();
+
+
+                      this.infoStations.style.display = 'none';
+                      this.reservation.style.display = 'none';
+                      this.reserver.style.display = 'none';
+                      this.map.style.display = 'none';
+
+            }
+
+         }
+
       // Initialisation de la carte
  initMap() {
 
@@ -109,10 +142,10 @@ class Mamap
          });// fin de ma variable de regroupement de markers
 
        })// fin ajaxGet
+  setInterval(this.ajaxGet,10000);
 
-
-       setInterval(this.initMap,10000);// fin de la fonction du rafraichissement toutes les 3 minutes pour les infos en temps reel
-
+      // setInterval(this.ajaxGet,10000);// fin de la fonction du rafraichissement toutes les 3 minutes pour les infos en temps reel
+    //  setInterval(function(){ ajaxGet()  },5000);
 
      }// fin initmap
 
@@ -137,6 +170,7 @@ class Mestations
     let reserver = document.getElementById('reserver');
     let reservation = document.getElementById('reservation');
     this.resaVelo();
+
   }
 
   resaVelo() {
@@ -148,6 +182,7 @@ class Mestations
                 reservation.style.display = "block";
                 reserver.style.display = 'none';
                 reserver.currentElem = new Reservation(this.status, this.address, this.name, this.available_bikes);
+
                 sessionStorage.setItem('station_status',  this.status);
                 sessionStorage.setItem('station_name',  this.name);
                 sessionStorage.setItem('station_address',  this.address);
@@ -196,9 +231,12 @@ console.log(this.available_bikes);
           }
 
 
-      //  setInterval(this.displayElem(marker,info),10000);
-
-
+       //setInterval(this.displayElem(),30000);
+/*
+if (this.available_bikes-- || this.available_bikes_stands--) {
+  this.displayElem();
+}
         }
-
+*/
+}
 }

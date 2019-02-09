@@ -266,6 +266,12 @@ span {
   border-radius: 5px 5px 5px 5px;
 }
 
+.erreur_form {
+  color: orange;
+  font-family: arial,time;
+  font-size: 0.5em;
+}
+
 #decompte {
   display: none;
   font-family: sans-serif,arial;

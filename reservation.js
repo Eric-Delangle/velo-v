@@ -8,19 +8,21 @@ class Reservation
       this.envoyer = document.getElementById('envoyer');
       this.decompte = document.getElementById('decompte');
       this.infoStations = document.getElementById('infoStations');
-      this.isDrawing = false;
+      this.isDrawing = sessionStorage.getItem('this.isDrawing');
+  //    this.isDrawing = false;
       this.nom = document.getElementById('nom');
       this.prenom = document.getElementById('prenom');
       this.formulaire = document.getElementById('formulaire');
       this.erreur = document.getElementById('erreur');
+      this.erreur.className = "erreur_form";
       this.debutDecompte = sessionStorage.getItem('debutDecompte');
       this.finDecompte = sessionStorage.getItem('finDecompte');
       this.tempsRestant = sessionStorage.getItem('tempsRestant');
       this.map = document.getElementById('map');
-      this.restartChrono()
+  //   this.restartChrono()
       this.verifForm();
       this.chrono();
-
+//window.addEventListener('load', this.restartChrono());
 
 
 }
@@ -29,103 +31,57 @@ class Reservation
 
     verifForm() {
 
-      this.formulaire.addEventListener('submit', (event) => {
+      this.envoyer.addEventListener('click', (event) => {
 
-        let regex = /^[a-zA-Z_-éè]{2,40}$/;
-        let erreur = [
-                      'Veuiller signer votre reservation!',
-                      'Veuiller utiliser au moins deux caractères !',
-                      'Veuiller ne pas utiliser plus de quarante caractères !',
-                      'Veuiller n\'utiliser que des lettres !',
-                    ];
-/*
-       let erreurStyle = [document.getElementById('erreur').style.color = 'orange',
-                      document.getElementById('erreur').style.fontFamily = 'arial',
-                      document.getElementById('erreur').style.fontSize = '0.5em']
+        let regex = new RegExp("[a-zA-Z_-éè ]{2,40}");
 
-        const nomVide = document.getElementById('nom_vide');
-        const prenomVide = document.getElementById('prenom_vide');
-        const signature = document.getElementById('signature_vide');
-        const canvas = document.getElementById('canvas');
-*/
-        this.isDrawing = sessionStorage.getItem('this.isDrawing');
+        let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
+        for (erreurs = 0; erreurs < erreurs.length; erreurs++) {
+            erreurs.push(erreur);
+            console.log(erreurs);
+          }
+// verifier la signature
 
-                if(this.isDrawing === false) {
+              let isDrawing = sessionStorage.getItem('this.isDrawing');
+
+                if(isDrawing == false || isDrawing == null) {
                   event.preventDefault();
+                  this.erreur.textContent = 'Veuillez signer votre réservation !';
+                }else{};
 
-                  this.erreur.textContent = erreur[0];
-                  document.getElementById('erreur').style.color = 'orange';
-                  document.getElementById('erreur').style.fontFamily = 'arial';
-                  document.getElementById('erreur').style.fontSize = '0.5em';
-                }else{
+// Vérifier que les champs ne soient pas vides
 
-                }
-/*
-                if (!regex.test(this.nom.value.length) < 2 || !regex.test(this.prenom.value.length < 2)) {
-                  console.log(this.nom.value.length);
+                if (this.prenom.length < 0 || this.nom.length < 0) {
                   event.preventDefault();
-                  this.erreur.textContent = erreur[1];
-                  document.getElementById('erreur').style.color = 'orange';
-                  document.getElementById('erreur').style.fontFamily = 'arial';
-                  document.getElementById('erreur').style.fontSize = '0.5em';
-                }else{
+                  console.log(this.prenom.value);
+                  this.erreur.textContent = 'Veuillez remplir tous les champs !';
+                  }else{};
 
-                }
-                if (this.nom.value.length > 40 || this.prenom.value.length > 40) {
-                  event.preventDefault();
-                  this.erreur.textContent = erreur[2];
-                  document.getElementById('erreur').style.color = 'orange';
-                  document.getElementById('erreur').style.fontFamily = 'arial';
-                  document.getElementById('erreur').style.fontSize = '0.5em';
-                }else{
+// Vérifier que l'utilisateur n'entre que des lettres
 
-
-}
                 if (!regex.test(this.prenom.value) || !regex.test(this.nom.value)) {
                   event.preventDefault();
-                  this.erreur.innerHTML = erreur[3];
-                  document.getElementById('erreur').style.color = 'orange';
-                  document.getElementById('erreur').style.fontFamily = 'arial';
-                  document.getElementById('erreur').style.fontSize = '0.5em';
-                }else{
+                  console.log(this.prenom.value);
+                  this.erreur.textContent = 'Veuillez n\'utiliser que des lettres !';
+                  }else{};
 
-                }
-*/
-          })
+// vérifier que la valeur fasse au moins deux caractères
+
+                if (this.nom.value.length < 2  || this.prenom.value.length < 2) {
+                  console.log(this.nom.value.length);
+                 event.preventDefault();
+                  this.erreur.textContent = 'Veuillez entrer au moins deux caractères !';
+                }else{};
+
+// vérifier que la valeur ne fasse pas plus de quarante caractères
+
+                if (this.nom.value.length > 40 || this.prenom.value.length > 40) {
+                  event.preventDefault();
+                  this.erreur.textContent = 'Veuillez ne pas dépasser 40 caractères !';
+                }else{};
+
+            });
 }
-
-
-
-// Ici je relance mon chrono si un rafraichissement de la page a eu lieu par mégarde
-
- restartChrono() {
-
- window.addEventListener('load',  ()=> { // pour relancer ma resa au rafraichissement
-
-console.log(this.finDecompte);
-
-      if (this.finDecompte != null) {
-
-
-          let finDecompte = new Date(sessionStorage.getItem('finDecompte'));
-          let oupsRefresh = new Date();
-            sessionStorage.setItem('oupsRefresh', oupsRefresh);
-          let tempsRestant = Math.floor((finDecompte - oupsRefresh) / 1000);
-            sessionStorage.setItem('tempsRestant', tempsRestant);
-          let minute = sessionStorage.getItem('minute');
-          let seconde = sessionStorage.getItem('seconde');
-
-                this.timer = new Timer().startTimer();
-
-
-                this.infoStations.style.display = 'none';
-                this.reservation.style.display = 'none';
-                this.reserver.style.display = 'none';
-                this.map.style.display = 'none';
-
-      }
-    });
-   }
 
 
 // si pas de resa en cours on envoie le timer de 20 mn
