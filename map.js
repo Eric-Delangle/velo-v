@@ -25,7 +25,7 @@ class Mamap
       this.reservation = document.getElementById('reservation');
       this.reserver = document.getElementById('reserver');
       this.map = document.getElementById('map');
-window.addEventListener('load', this.restartChrono());
+      window.addEventListener('load', this.restartChrono());
       }
       // Ici je relance mon chrono si un rafraichissement de la page a eu lieu par mégarde pendant une reservation
 
@@ -97,13 +97,11 @@ window.addEventListener('load', this.restartChrono());
                          position: elem.position,
                          map: map,
                          icon: elem.icon
-
                        }); // fin de la variable de creation de marker
-                       //console.log(elem.icon);
 
                        markers.push(marker);
 
-
+// au click sur un marker j'affiche les infos grace a l'objet mestations
 
     marker.addListener('click', ()=> {
 
@@ -112,7 +110,7 @@ window.addEventListener('load', this.restartChrono());
         if (elem.status === "OPEN") {
 
           document.getElementById('stationFermee').innerHTML = "";
-          infoStations.style.display = "block"; // au click j'affiche les infos grace a l'objet mestations
+          infoStations.style.display = "block";
           reserver.style.display = 'block';
           marker.currentElem = new Mestations(elem.status, elem.name, elem.address, elem.available_bike_stands, elem.available_bikes);
           marker.currentElem.displayElem();
@@ -142,17 +140,20 @@ window.addEventListener('load', this.restartChrono());
          });// fin de ma variable de regroupement de markers
 
        })// fin ajaxGet
-  setInterval(this.ajaxGet,10000);
+//setInterval(this.ajaxget,10000);
+       // ces setintervals me donnent les infos en temps reel
 
-      // setInterval(this.ajaxGet,10000);// fin de la fonction du rafraichissement toutes les 3 minutes pour les infos en temps reel
-    //  setInterval(function(){ ajaxGet()  },5000);
+
+  //console.log(this.statuStation());
+  //setInterval(statuStation,10000);
+//  console.log(statuStation());
+
+
+
 
      }// fin initmap
 
 }
-
-
-
 
 // CREATION DE L'OBJET STATIONS //
 
@@ -192,30 +193,26 @@ class Mestations
         }
 
   displayElem() {
-    /*
-    let status = this.status;
-    let name = this.name;
-    let address = this.address;
-    let available_bike_stands = this.available_bike_stands;
-    let available_bikes = this.available_bikes;
-let marker = new google.maps.Marker();
-let info = marker.currentElem;
-*/
-      this.map.style.margin = "0 10px";
-      nomStation.innerHTML = "Station: " +  this.name;
-    //  sessionStorage.setItem('station',station);
-      adressStation.innerHTML = "Adresse: " +  this.address;
-    //  sessionStorage.setItem('adresse', adresse);
-      attachesDispos.innerHTML = "Places disponibles: " + this.available_bike_stands;
-    //  sessionStorage.setItem('place',place);
-      bikesAvailable.innerHTML = "Vélos disponibles: " + this.available_bikes;
-  //    sessionStorage.setItem('velo',velo);
-      this.reservation.style.display = 'none';
-console.log(this.status);
-console.log(this.name);
-console.log(this.available_bike_stands);
 
-console.log(this.available_bikes);
+  let name =  this.name;
+  let address = this.address;
+  let available_bike_stands = this.available_bike_stands;
+  let available_bikes = this.available_bikes;
+
+
+
+      this.map.style.margin = "0 10px";
+      nomStation.innerHTML = "Station: " +  name;
+      adressStation.innerHTML = "Adresse: " +  address;
+      attachesDispos.innerHTML = "Places disponibles: " + available_bike_stands;
+      bikesAvailable.innerHTML = "Vélos disponibles: " + available_bikes;
+      this.reservation.style.display = 'none';
+
+
+console.log(this.status);
+console.log(name);
+console.log(available_bike_stands);
+console.log(available_bikes);
 
 
 
@@ -230,13 +227,5 @@ console.log(this.available_bikes);
             document.getElementById('stationFermee').innerHTML = "Cette station est fermée !";
           }
 
-
-       //setInterval(this.displayElem(),30000);
-/*
-if (this.available_bikes-- || this.available_bikes_stands--) {
-  this.displayElem();
-}
-        }
-*/
 }
 }

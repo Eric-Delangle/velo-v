@@ -9,7 +9,6 @@ class Reservation
       this.decompte = document.getElementById('decompte');
       this.infoStations = document.getElementById('infoStations');
       this.isDrawing = sessionStorage.getItem('this.isDrawing');
-  //    this.isDrawing = false;
       this.nom = document.getElementById('nom');
       this.prenom = document.getElementById('prenom');
       this.formulaire = document.getElementById('formulaire');
@@ -19,15 +18,11 @@ class Reservation
       this.finDecompte = sessionStorage.getItem('finDecompte');
       this.tempsRestant = sessionStorage.getItem('tempsRestant');
       this.map = document.getElementById('map');
-  //   this.restartChrono()
       this.verifForm();
       this.chrono();
-//window.addEventListener('load', this.restartChrono());
-
-
 }
 
-//Vérification du formulaire, tous les champs doivent être remplis
+//Vérification du formulaire
 
     verifForm() {
 
@@ -35,26 +30,38 @@ class Reservation
 
         let regex = new RegExp("[a-zA-Z_-éè ]{2,40}");
 
-        let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
-        for (erreurs = 0; erreurs < erreurs.length; erreurs++) {
-            erreurs.push(erreur);
-            console.log(erreurs);
-          }
+       let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
+
+        let erreur = ['Veuillez remplir tous les champs !',
+                      'Veuillez entrer au moins deux caractères !',
+                      'Veuillez ne pas dépasser 40 caractères !',
+                      'Veuillez n\'utiliser que des lettres !',
+                      'Veuillez signer votre réservation !'
+                      ];
+
+                      // boucler les erreurs
+                        for (erreurs = 0; erreurs < erreurs.length; erreurs++) {
+                                          erreurs.push(erreur);
+                                          console.log(erreurs.length);
+                                        }
+
 // verifier la signature
 
               let isDrawing = sessionStorage.getItem('this.isDrawing');
 
                 if(isDrawing == false || isDrawing == null) {
                   event.preventDefault();
-                  this.erreur.textContent = 'Veuillez signer votre réservation !';
+                  this.erreur.textContent = erreur[4];
+
                 }else{};
 
 // Vérifier que les champs ne soient pas vides
 
-                if (this.prenom.length < 0 || this.nom.length < 0) {
+                if (this.prenom.length <= 0 || this.nom.length <= 0) {
                   event.preventDefault();
                   console.log(this.prenom.value);
-                  this.erreur.textContent = 'Veuillez remplir tous les champs !';
+                  this.erreur.textContent = erreur[0];
+
                   }else{};
 
 // Vérifier que l'utilisateur n'entre que des lettres
@@ -62,25 +69,32 @@ class Reservation
                 if (!regex.test(this.prenom.value) || !regex.test(this.nom.value)) {
                   event.preventDefault();
                   console.log(this.prenom.value);
-                  this.erreur.textContent = 'Veuillez n\'utiliser que des lettres !';
+                  this.erreur.textContent = erreur[3];
+
                   }else{};
 
 // vérifier que la valeur fasse au moins deux caractères
 
-                if (this.nom.value.length < 2  || this.prenom.value.length < 2) {
+                if (this.nom.value.length <= 1 || this.prenom.value.length <= 1 ) {
                   console.log(this.nom.value.length);
                  event.preventDefault();
-                  this.erreur.textContent = 'Veuillez entrer au moins deux caractères !';
+                  this.erreur.textContent = erreur[1];
+
                 }else{};
 
 // vérifier que la valeur ne fasse pas plus de quarante caractères
 
                 if (this.nom.value.length > 40 || this.prenom.value.length > 40) {
                   event.preventDefault();
-                  this.erreur.textContent = 'Veuillez ne pas dépasser 40 caractères !';
+                  this.erreur.textContent = erreur[2];
+
                 }else{};
 
+                //console.log(erreurs.length);
+
+
             });
+
 }
 
 
@@ -212,7 +226,6 @@ class Timer
 
                 this.stopTimer();
                 clearInterval(this.startTimer);
-                localStorage.clear();
                 sessionStorage.clear();
                 this.infoStations.style.display = 'none';
                 this.reservation.style.display = 'none';
