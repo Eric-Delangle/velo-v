@@ -22,6 +22,7 @@ class Reservation
       this.chrono();
 }
 
+
 //Vérification du formulaire
 
     verifForm() {
@@ -30,20 +31,13 @@ class Reservation
 
         let regex = new RegExp("[a-zA-Z_-éè ]{2,40}");
 
-       let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
+        let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
 
-        let erreur = ['Veuillez remplir tous les champs !',
-                      'Veuillez entrer au moins deux caractères !',
-                      'Veuillez ne pas dépasser 40 caractères !',
-                      'Veuillez n\'utiliser que des lettres !',
-                      'Veuillez signer votre réservation !'
-                      ];
-
-                      // boucler les erreurs
-                        for (erreurs = 0; erreurs < erreurs.length; erreurs++) {
-                                          erreurs.push(erreur);
-                                          console.log(erreurs.length);
-                                        }
+// boucler les erreurs
+        for (erreurs = 0; erreurs < erreurs.length; erreurs++) {
+            erreurs.push(erreur);
+            console.log(erreurs.length);
+            }
 
 // verifier la signature
 
@@ -51,7 +45,7 @@ class Reservation
 
                 if(isDrawing == false || isDrawing == null) {
                   event.preventDefault();
-                  this.erreur.textContent = erreur[4];
+                  this.erreur.textContent = 'Veuillez signer votre réservation !';
 
                 }else{};
 
@@ -60,7 +54,7 @@ class Reservation
                 if (this.prenom.length <= 0 || this.nom.length <= 0) {
                   event.preventDefault();
                   console.log(this.prenom.value);
-                  this.erreur.textContent = erreur[0];
+                  this.erreur.textContent = 'Veuillez remplir tous les champs !';
 
                   }else{};
 
@@ -69,7 +63,7 @@ class Reservation
                 if (!regex.test(this.prenom.value) || !regex.test(this.nom.value)) {
                   event.preventDefault();
                   console.log(this.prenom.value);
-                  this.erreur.textContent = erreur[3];
+                  this.erreur.textContent = 'Veuillez n\'utiliser que des lettres !';
 
                   }else{};
 
@@ -78,26 +72,123 @@ class Reservation
                 if (this.nom.value.length <= 1 || this.prenom.value.length <= 1 ) {
                   console.log(this.nom.value.length);
                  event.preventDefault();
-                  this.erreur.textContent = erreur[1];
+                  this.erreur.textContent = 'Veuillez entrer au moins deux caractères !';
 
                 }else{};
 
-// vérifier que la valeur ne fasse pas plus de quarante caractères
+// vérifier que la valeur ne fasse pas plus de vingt caractères
 
-                if (this.nom.value.length > 40 || this.prenom.value.length > 40) {
+                if (this.nom.value.length > 20 || this.prenom.value.length > 20) {
                   event.preventDefault();
-                  this.erreur.textContent = erreur[2];
+                  this.erreur.textContent = 'Veuillez ne pas dépasser 40 caractères !';
 
                 }else{};
 
-                //console.log(erreurs.length);
+                console.log(erreurs);
 
 
             });
 
 }
 
+/*
+//Vérification du formulaire
 
+    verifForm() {
+
+      this.envoyer.addEventListener('click', (event) => {
+
+        let regex = new RegExp("([a-z^0-9])","i");
+
+
+
+  /*
+        let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
+        let erreur = this.erreur;
+
+        for (let i = 0; i < erreurs.length; erreurs++) {
+                         erreurs.push(erreur);
+                  //    this.erreur.textContent = erreurs[''];
+
+                          console.log(erreurs);
+                        }
+
+/*
+        let erreurMessage = ['Veuillez remplir tous les champs !',
+                      'Veuillez entrer au moins deux caractères !',
+                      'Veuillez ne pas dépasser 20 caractères !',
+                      'Veuillez n\'utiliser que des lettres !',
+                      'Veuillez signer votre réservation !'
+                      ];
+
+                  //    let erreurPush = erreurs.push(this.erreur);
+                      // boucler les erreurs
+
+
+// verifier la signature
+
+              let isDrawing = sessionStorage.getItem('this.isDrawing');
+
+                if(isDrawing == false || isDrawing == null) {
+                  event.preventDefault();
+                //  erreurs.push(erreur);
+                console.log(isDrawing);
+                  this.erreur.textContent = 'Veuillez signer votre réservation !';
+
+                }else{};
+
+
+// Vérifier que l'utilisateur entre au moins deux caractères
+
+                if (this.prenom.length > 2 || this.nom.length > 2) {
+
+console.log(this.nom.length);
+                }else {
+                  event.preventDefault();
+
+                //  erreurs.push(erreur);
+                  this.erreur.textContent = 'Veuillez entrer au moins deux caractères !';
+                };
+
+// vérifier que l'utilisateur n'entre que des lettres
+
+                if (regex.test(this.nom.value) || regex.test(this.prenom.value)) {
+                    return true;
+                  }else {
+                    event.preventDefault();
+                //   erreurs.push(erreur);
+                    this.erreur.textContent = 'Veuillez n\'utiliser que des lettres !';
+                  };
+
+// vérifier que la valeur ne fasse pas plus de vingt caractères
+
+                if (this.nom.length < 21 || this.prenom.length < 21) {
+                  return true;
+console.log(this.nom.length);
+                }else {
+                  event.preventDefault();
+                //  erreurs.push(erreur);
+                  this.erreur.textContent = 'Veuillez ne pas dépasser 20 caractères !';
+                };
+
+
+// Vérifier que les champs ne soient pas vides
+
+                  if (this.prenom.value == 0 || this.nom.value == 0) {
+                     event.preventDefault();
+                     console.log(this.prenom);
+                  //   erreurs.push(erreur);
+                     this.erreur.textContent = 'Veuillez remplir tous les champs !';
+
+                   }else {
+                     return true;
+                   };
+
+            });
+
+}
+
+*/
 // si pas de resa en cours on envoie le timer de 20 mn
 
     chrono() {

@@ -128,6 +128,7 @@ class Signature
      effacer.addEventListener('click', ()=> {
        this.canvas.width = this.canvas.width;
        this.signed = false;
+       this.isDrawing = false;
        this.canvas.style.display = 'block';
      });
    }

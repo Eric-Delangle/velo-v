@@ -31,9 +31,6 @@ class Mamap
 
        restartChrono() {
 
-      console.log('faitChier');
-      console.log(this.finDecompte);
-
             if (this.finDecompte != null) {
 
 
@@ -41,12 +38,10 @@ class Mamap
                 console.log(finDecompte);
                 let oupsRefresh = new Date();
                   sessionStorage.setItem('oupsRefresh', oupsRefresh);
-              this.tempsRestant = Math.floor((finDecompte - oupsRefresh) / 1000);
+                this.tempsRestant = Math.floor((finDecompte - oupsRefresh) / 1000);
                   sessionStorage.setItem('tempsRestant', this.tempsRestant);
 
                       this.timer = new Timer().startTimer();
-
-
                       this.infoStations.style.display = 'none';
                       this.reservation.style.display = 'none';
                       this.reserver.style.display = 'none';
