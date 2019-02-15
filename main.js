@@ -7,7 +7,11 @@ class Main
     this.mamap = new Mamap();
     this.signature = new Signature();
     this.mamap.initMap();
-    setInterval(reservation.displayElem,10000);
+  //  this.mamap.initMarkers();
+  //  this.reservation = new Reservation();
+  //  setInterval(this.reservation.displayElem,10000);
+  //  this.mestations = new Mestations();
+  //  setInterval(this.mestations.displayElem,10000);
 
     this.slider.init();
     this.signature.drawCanvas();

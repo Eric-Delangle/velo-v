@@ -127,7 +127,7 @@ class Signature
      let effacer = document.getElementById("effacer");
      effacer.addEventListener('click', ()=> {
        this.canvas.width = this.canvas.width;
-       this.signed = false;
+      // this.signed = false;
        this.isDrawing = false;
        this.canvas.style.display = 'block';
      });
