@@ -9,6 +9,25 @@
     <link href="style.css" rel="stylesheet"/>
   </head>
 <body>
+  <div id="container-header">
+  <div id="navigation">
+    <!--burger-->
+		<input id="burger" type="checkbox" />
+			<label for="burger">
+			    <span></span>
+			    <span></span>
+			    <span></span>
+			</label>
+		<!--fin burger-->
+      <nav>
+        <ul>
+          <li><a href="#carrousel">Comment ça marche ?</a></li>
+          <li><a href="#infoicons">Chercher mon vélo</a></li>
+          <li><a href="#pied">Mes réservations</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
   <header>
     <h1>Velo'v</h1>
     <div id="icone">
@@ -18,10 +37,10 @@
   </header>
 
     <!-- SECTION SLIDER -->
-<section id="haute">
+<!--<section id="haute">-->
   <div id="heure"></div>
   <div id ="carrousel">
-    <ul>
+    <ul id="panorama">
       <li class="slide">
         <figure>
           <img src="images/velov1.jpg" alt="img1">
@@ -76,7 +95,15 @@
     </button>
   </div>
   </div>
-</section>
+  <div id="centrage-ancre">
+  <div class="cadreancre">
+  <p><a href="#infoicons" class="ancre">Chercher mon vélo</a></p>
+</div>
+<div class="cadreancre">
+  <p><a href="#navigation" class="ancre">Remonter en haut de la page</a></p>
+</div>
+</div>
+<!--</section>-->
 
 <!-- SECTION MILIEU-->
 
@@ -84,7 +111,7 @@
   <div id="infoicons">
       <p class="infoic">
         <img src="images/bike-icon.png" alt="img5">
-          <span>Station ouverte : au moins un vélo est disponible</span>
+          <span>Station ouverte</span>
         </p>
       <p class="infoic">
         <img src="images/pasdevelo.png" alt="img6">
@@ -94,6 +121,9 @@
         <img src="images/ferme.png" alt="img7">
           <span>Station fermée</span>
         </p>
+  </div>
+  <div class="cadreancre">
+    <p id="ancreMilieu"><a href="#navigation" class="ancre">Remonter en haut de la page</a></p>
   </div>
 </section>
 
@@ -147,9 +177,9 @@
       <br>
         <span id="signatureOb" class="champs"> Signez dans le cadre (obligatoire)</span>
         <canvas id="canvas" class="champs"  width="270" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
-        <span id="signature_vide"></span>
-        <input class="champs" id="envoyer" name="envoi" type="submit" value="Envoyer">
+        <div id="canvasimg"></div>
         <input class="champs" id="effacer" type="button" value="Effacer">
+        <input class="champs" id="envoyer" name="envoi" type="submit" value="Envoyer">
       </form>
       <!--  <audio autoplay id="dring" src="sonnette.wav">
       </audio>-->
@@ -176,6 +206,7 @@
         <input class="champs" id="annuler" type="button" value="Annuler">
     <!--   <input type="button" value="Rafraichir" id="refresh"> -->
     <a href="javascript:window.location.reload()" id="refresh">Recharger la page</a>
+    <a href="#navigation" id="navigation">Remonter en haut de la page</a>
       </div>
 </footer>
 <noscript>Merci d'activer votre JavaScript.</noscript>

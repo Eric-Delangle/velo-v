@@ -1,164 +1,122 @@
 class Signature
-{
-  constructor(canvas, context) {
-     this.reservation = document.getElementById('reservation');
-     this.envoyer = document.getElementById('envoyer');
-     this.canvas = document.getElementById('canvas');
-     this.context = this.canvas.getContext('2d');
-  //   this.isDrawing = false;
-     this.mouseX = 0;
-     this.mouseY = 0;
-     this.signed = false;
-     this.lastPosition = {
-       x: 0,
-       y: 0
-     };
-// message d'erreur si le navigateur n'est pas a jour
-     if(!this.canvas) {
-       alert("Impossible de récupérer le canvas");
-       return;
-     }
+ {
+	constructor(){	// Initialisation des paramÃ¨tres du canvas
+		this.canvas = document.getElementById("canvas")
+		this.ctx = this.canvas.getContext("2d")
+		this.ctx.strokeStyle = "#222222";
+		this.ctx.lineWidth = 3;
+		this.drawing = false;
+		this.mousePos = { x:0, y:0 };
+		this.lastPos = this.mousePos;
+		// Bouton pour effacer et création de la variable du compteur
+		this.effacer = document.getElementById("effacer");
+    this.compteur = 0;
 
-     if(!this.context) {
-       alert("Impossible de récupérer le context du canvas");
-       return;
-     }
-// definition de la largeur du trait et de sa couleur
-     this.context.lineWidth = 2;
-     this.context.strokeStyle = '#000';
-// lancement de toutes les methodes de mon objet signature
-     this.drawCanvas();
-     this.touchCanvas();
-     this.displayCanvas();
-     this.clearCanvas();
-     this.checkScrolling();
+		this.canvasEvents()
+	}
 
-   }
-// Creation de la methode de dessin, mousedown declencle l'evennement lors du click de la souris sur le canvas
-// getBoundingClientRect renvoie la taille d'un élément et sa position relative par rapport à la zone d'affichage (viewport).
-   drawCanvas() {
-     this.canvas.addEventListener("mousedown", (e) => {
-       this.isDrawing = true;
+	canvasEvents(){
+		//Evénements PC
+		this.canvas.addEventListener("mousedown",(e)=> {
+			this.drawing = true;
+      sessionStorage.setItem('this.drawing', this.drawing);
+			this.lastPos = this.getMousePos(e);
+      this.compteur++;
+      sessionStorage.setItem('this.compteur',this.compteur);
+      console.log(this.compteur);
+		});
+		this.canvas.addEventListener("mouseup",(e)=> {
+			this.drawing = false;
+		});
+		this.canvas.addEventListener("mousemove",(e)=> {
+			this.mousePos = this.getMousePos(e);
+			this.renderCanvas()
+		});
 
-       this.mouseX = e.clientX - this.canvas.getBoundingClientRect().left;
-       this.mouseY = e.clientY - this.canvas.getBoundingClientRect().top;
-       this.lastPosition = {
-         x: this.mouseX,
-         y: this.mouseY
-       };
-       sessionStorage.setItem('this.isDrawing', this.isDrawing);
-     });
-// declenche l'evennement quand la souris est relachee
-     this.canvas.addEventListener("mouseup", () => {
-       if (this.signed) {
-         let envoyer = document.getElementById("envoyer");
-         let effacer = document.getElementById("effacer");
-         envoyer.style.display = "block";
-         effacer.style.display = "block";
-       }
-       this.isDrawing = false; // si true ça continue a dessiner
-     });
+		//Evénements Tablette/Mobile
 
-// declenche l'evennement quand la souris bouge au dessus de l'element
-     this.canvas.addEventListener("mousemove", (e) => {
-       if (this.isDrawing) {
-         this.signed = true;
-         this.mouseX = e.clientX - this.canvas.getBoundingClientRect().left;
-         this.mouseY = e.clientY - this.canvas.getBoundingClientRect().top;
-         this.context.moveTo(this.lastPosition.x, this.lastPosition.y);
-         this.context.lineTo(this.mouseX, this.mouseY);
-         this.context.stroke();
-         this.lastPosition = {
-           x: this.mouseX,
-           y: this.mouseY
-         };
-       }
-     });
-   }
-// element déclenche pour le tactile
-   touchCanvas() {
-     this.canvas.addEventListener("touchstart", (e) => {
-       this.isDrawing = true;
-       this.mouseX = e.touches[0].clientX - this.canvas.getBoundingClientRect().left;
-       this.mouseY = e.touches[0].clientY - this.canvas.getBoundingClientRect().top;
-       this.lastPosition = {
-         x: this.mouseX,
-         y: this.mouseY
-       };
-     });
-// fin de signature quand on lache le tactile
-     this.canvas.addEventListener("touchend", () => {
-       if (this.signed) {
-         let envoyer = document.getElementById("envoyer");
-         let effacer = document.getElementById("effacer");
-         envoyer.style.display = "block";
-         effacer.style.display = "block";
-      //  envoyer.currentElem = new Timer();
-       }
-       this.isDrawing = false;
-     });
-// evennement lorque l'on bouge le doigt sur l'ecran
-     this.canvas.addEventListener("touchmove", (e) => {
-       if (this.isDrawing) {
-         this.signed = true;
+		// Empèche de scroller la page lorsqu'on signe
+		document.body.addEventListener("touchstart",(e)=> {
+			if (e.target == this.canvas) {
+				e.preventDefault();
+			}
+		});
+		document.body.addEventListener("touchend",(e)=> {
+			if (e.target == this.canvas) {
+				e.preventDefault();
+			}
+		});
+		document.body.addEventListener("touchmove",(e)=> {
+			if (e.target == this.canvas) {
+				e.preventDefault();
+			}
+		});
 
-         this.mouseX = e.touches[0].clientX - this.canvas.getBoundingClientRect().left;
-         this.mouseY = e.touches[0].clientY - this.canvas.getBoundingClientRect().top;
-         this.context.moveTo(this.lastPosition.x, this.lastPosition.y);
-         this.context.lineTo(this.mouseX, this.mouseY);
-         this.context.stroke();
-         this.lastPosition = {
-           x: this.mouseX,
-           y: this.mouseY
-         };
-       }
-     });
-   }
-// lancement de l'affichage du canvas
-   displayCanvas() {
-     let reserver = document.getElementById("reserver");
-     reserver.addEventListener('click', () => {
-       this.reservation.style.display = "block";
-       this.canvas.width = this.canvas.width;
-     });
-   }
-// nettoyage du canvas
-   clearCanvas() {
-     let effacer = document.getElementById("effacer");
-     effacer.addEventListener('click', ()=> {
-       this.canvas.width = this.canvas.width;
-      // this.signed = false;
-       this.isDrawing = false;
-       this.canvas.style.display = 'block';
-     });
-   }
+		this.canvas.addEventListener("touchstart",(e)=> {
+			this.mousePos = this.getTouchPos(e);
+			let touch = e.touches[0];
+      this.compteur++;
+      sessionStorage.setItem('this.compteur',this.compteur);
+      sessionStorage.setItem('this.drawing',this.drawing);
+			let mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
+				clientX: touch.clientX,
+				clientY: touch.clientY
+			});
+			this.canvas.dispatchEvent(mouseEvent);//que j'envoie a sa cible
+		});
+		this.canvas.addEventListener("touchend",(e)=> {
+			let mouseEvent = new MouseEvent("mouseup", {});
+			this.canvas.dispatchEvent(mouseEvent);
+		});
+		this.canvas.addEventListener("touchmove",(e)=> {
+			let touch = e.touches[0];
+			let mouseEvent = new MouseEvent("mousemove", {
+				clientX: touch.clientX,
+				clientY: touch.clientY
+			});
+			this.canvas.dispatchEvent(mouseEvent);
+		});
 
-   checkScrolling() {
+		this.effacer.addEventListener("click",()=>{
+			this.clearCanvas();
+		});
 
-     document.body.addEventListener("touchstart", (e) => {
-       if (e.target == this.canvas) {
-         e.preventDefault();
-       }
-     }, {passive:false});
-     document.body.addEventListener("touchend", (e) => {
-       if (e.target == this.canvas) {
-         e.preventDefault();
-       }
-     }, {passive:false});
-     document.body.addEventListener("touchmove", (e) => {
-       if (e.target == this.canvas) {
-         e.preventDefault();
-       }
-     }, {passive:false});
-/*
-     // tentative de sauvegarde de la signature
-     this.envoyer.addEventListener('click', ()=> {
-     let data = this.canvas.toDataURL();
-     sessionStorage.setItem('data', data);
-     console.log(data);
-   });
-   */
-   }
+	}
 
+	getMousePos(mouseEvent){ // Renvoie les coordonnées de la position de la souris si on dessine (axe X et Y)
+		if (this.drawing) {
+			let rect = this.canvas.getBoundingClientRect();
+			return {
+				x: mouseEvent.clientX - rect.left,
+				y: mouseEvent.clientY - rect.top
+			};
+		}
 
+	}
+
+	getTouchPos(touchEvent) { // Renvoie les coordonnées de la position du pad si on dessine (axe X et Y)
+		let rect = this.canvas.getBoundingClientRect();
+		return {
+			x: touchEvent.touches[0].clientX - rect.left,
+			y: touchEvent.touches[0].clientY - rect.top
+		};
+
+    console.log(touchEvent);
+	}
+
+	renderCanvas(){ // Rendu du canvas
+		if(this.drawing){
+			this.ctx.moveTo(this.lastPos.x, this.lastPos.y);
+			this.ctx.lineTo(this.mousePos.x, this.mousePos.y);
+			this.ctx.stroke();
+			this.lastPos = this.mousePos;
+		}
+	}
+
+	clearCanvas(){ // Effacer la signature
+		this.canvas.width = this.canvas.width;
+		this.ctx.lineWidth = 3;
+    this.drawing = false;
+    sessionStorage.setItem('this.drawing',this.drawing);
+	}
 }

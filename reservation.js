@@ -9,7 +9,8 @@ class Reservation
       this.envoyer = document.getElementById('envoyer');
       this.decompte = document.getElementById('decompte');
       this.infoStations = document.getElementById('infoStations');
-      this.isDrawing = sessionStorage.getItem('this.isDrawing');
+    //  this.dataURL = sessionStorage.getItem('dataURL');
+      this.compteur = sessionStorage.getItem('compteur');
       this.nom = document.getElementById('nom');
       this.prenom = document.getElementById('prenom');
       this.formulaire = document.getElementById('formulaire');
@@ -19,8 +20,11 @@ class Reservation
       this.finDecompte = sessionStorage.getItem('finDecompte');
       this.tempsRestant = sessionStorage.getItem('tempsRestant');
       this.map = document.getElementById('map');
+      this.canvasimg = document.getElementById('canvasimg');
+    //  this.drawing = sessionStorage.getItem('this.drawing');
       this.verifForm();
       this.chrono();
+      console.log(this.compteur);
 }
 // VERIFICATION DU FORMULAIRE
 
@@ -65,9 +69,10 @@ verifForm() {
 
 // verifier la signature
 
-    const isDrawing = sessionStorage.getItem('this.isDrawing');
-    if(isDrawing == false || isDrawing == null) {
+  //  const isDrawing  = sessionStorage.getItem('this.isDrawing');
+    if(sessionStorage.getItem('this.compteur') <= 0) {
       event.preventDefault();
+      console.log(this.compteur);
       console.log("erreurs canva");
       erreurs.push('Veuillez signer votre réservation !');
     };
@@ -138,7 +143,10 @@ class Timer
     this.secondes = document.getElementById('secondes');
     this.nomResa = document.getElementById('nomResa');
     this.etat = document.getElementById('etat');
+    this.time = document.getElementById('time');
     this.refresh = document.getElementById('refresh');
+    this.map = document.getElementById('map');
+  //  this.canvas = document.getElementById('canvas');
     const decompte = document.getElementById('decompte');
     const time = document.getElementById('time');
       this.annulation();
@@ -168,6 +176,8 @@ class Timer
         this.etat.innerHTML = "Etat : Ouvert";
         this.etat.style.color = '#6fd27b';
         this.refresh.style.display = "none";
+        this.annuler.style.display = 'block';
+        this.infoicons.style.display = 'flex';
       }
       if (this.tempsRestant == 0) {
         clearInterval(this.startTimer);
@@ -176,20 +186,30 @@ class Timer
         this.refresh.style.display = "block";
         nomResa.style.display = 'none';
         this.annuler.style.display = 'none';
+        this.map.style.display = 'block';
       }
   },1000);
 }
 
-  annulation() {
+annulation() {
     this.annuler.addEventListener('click', ()=> {
       this.stopTimer();
       clearInterval(this.startTimer);
       sessionStorage.clear();
-      this.infoStations.style.display = 'none';
-      this.reservation.style.display = 'none';
-      this.decompte.style.display = 'none';
-      map.style.display = 'block';
-      map.style.margin = "0 auto";
+      window.location.reload();
+    //  this.infoStations.style.display = 'none';
+    //  this.reservation.style.display = 'none';
+      this.decompte.style.display = 'block';
+      this.refresh.style.display = "block";
+    //  time.style.display = "none"
+      this.etat.style.display = 'none';
+      this.nomResa.style.display = 'none';
+      adresse.style.display = 'none';
+      this.annuler.style.display = 'none';
+    //  this.etat.innerHTML = "Etat : Ouvert";
+      this.map.style.display = 'block';
+
+      //map.style.margin = "0 auto";
       this.infoicons.style.display = 'flex';
    })
  }

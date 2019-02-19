@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Velo'V</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet"/>
+  </head>
+<body>
+  <header>
+    <h1>Velo'v</h1>
+    <div id="icone">
+      <i class="fa fa-bicycle fa-2x"></i>
+    </div>
+    <p>La plateforme interactive de location de vélos pour Lyon</p>
+  </header>
+
+    <!-- SECTION SLIDER -->
+<section id="haute">
+  <div id="heure"></div>
+  <div id ="carrousel">
+    <ul>
+      <li class="slide"><figure><img src="images/velov1.jpg"><figcaption class="legende">Choisissez une station(0)</figcaption></figure></li>
+      <li class="slide hide"><figure><img src="images/velov2.jpg"><figcaption class="legende"><div class="opaque">Choisissez un velo(1)</div></figcaption></figure></li>
+      <li class="slide hide"><figure><img src="images/velov3.jpg"><figcaption class="legende"><div class="opaque">Signez votre reservation(2)</div></figcaption></figure></li>
+      <li class="slide hide"><figure><img src="images/velov4.jpg"><figcaption class="legende"><div class="opaque">Vous avez un quart d'heure pour recuperer votre velo(3)</div></figcaption></figure></li>
+    </ul>
+  <div id="arrow-left"><button id="prev"><</button></div>
+  <div id="arrow-right"><button id="next">></button></div>
+  </div>
+</section>
+
+    <!-- SECTION MAP-->
+<section id="basse">
+    <div id="map"></div>
+    <div id="infoStations">
+        <ul id="listeInfos">
+          <li><span id="nomStation"></span></li>
+          <li><span id="city"></span></li>
+          <li><span id="adressStation"></span></li>
+          <li><span id="etatStation"></span></li>
+          <li><span id="placeStation"></span></li>
+          <li><span id="bikesAvailable"></span></li>
+          <li><span id="attachesDispos"></span></li>
+          </ul>
+          <input class="champs" id="reserver" type="button" value="Reserver">
+
+    </div>
+    <div id ="reservation">
+      <form id="formulaire">
+        <input class="champs" type="text" placeholder="Votre nom (obligatoire)">
+        <input class="champs" type="text" placeholder="Votre prenom (obligatoire)">
+        <canvas id="canvas" width="300" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
+        <input class="champs" id="envoyer" type="button" value="Envoyer">
+        <input class="champs" id="effacer" type="button" value="Effacer">
+        <!--<audio autoplay id="dring" src="sonnette.wav">-->
+</audio>
+</div>
+      </form>
+</section>
+<footer id="pied" >
+      <div id ="decompte">
+        <div id="time" class ="timer">
+          <span id ="minutes"></span>
+          <span id ="secondes"></span>
+        </div>
+        <p id="nameStation"></p>
+        <p id ="etat"></p>
+        <p id ="adresse"></p>
+        <input class="champs" id="annuler" type="button" value="Annuler">
+      </div>
+</footer>
+<noscript>Merci d'activer votre JavaScript.</noscript>
+<script src="slider5.js"></script>
+<script src="map.js"></script>
+<script src="ajax.js"></script>
+
+<script src="main.js"></script>
+<script src="timer.js"></script>
+<script src="stations.js"></script>
+<script src="reservation.js"></script>
+
+<script src="signature.js"></script>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDemjFYnk8WuExwDkWwCbNjvm2kl6sXGIs"></script>
+
+<script>
+let main = new Main();
+</script>
+
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+
+</body>
+</html>

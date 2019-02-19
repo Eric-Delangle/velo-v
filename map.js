@@ -25,6 +25,10 @@ class Mamap
     this.reservation = document.getElementById('reservation');
     this.reserver = document.getElementById('reserver');
     this.map = document.getElementById('map');
+    this.time = document.getElementById('time');
+    this.decompte = document.getElementById('decompte');
+    this.annuler = document.getElementById('annuler');
+    this.refresh = document.getElementById('refresh');
     window.addEventListener('load', this.restartChrono());
   }
 
@@ -42,6 +46,12 @@ class Mamap
     this.reservation.style.display = 'none';
     this.reserver.style.display = 'none';
     this.map.style.display = 'none';
+  }
+  if(this.findecompte == null) {
+    this.decompte.style.display = "block";
+    this.time.innerHTML = "Vous n'avez aucune réservation en cours.";
+    this.annuler.style.display = 'none';
+    this.refresh.style.display = 'none';
   }
 }
 
@@ -62,8 +72,9 @@ class Mamap
      let markers = [];
      stations.forEach((elem)=> { // elem correspond a une station
 // Initialise un marker
-     let statuStation = function initMarkers() {
+     let statuStation = function initMarkers() {// si je ne met pas ça dans une variable ça marche pas
 // Icone en fonction de l'ouverture ou non de la station
+
      if (elem.status === "OPEN" && elem.available_bikes > 0) {
         elem.icon = "images/bike-icon.png";
       } else if (elem.status === "OPEN" && elem.available_bikes === 0) {
@@ -72,12 +83,20 @@ class Mamap
         elem.icon = "images/ferme.png";
       }
     }
+
 statuStation();
 
       let marker = new google.maps.Marker({
         position: elem.position,
         map: map,
-        icon: elem.icon
+        icon: elem.icon,
+        label:  {
+                	text: String(elem.available_bikes),
+                	fontSize: "10px",
+                	color: "#ffffff",
+                  fontWeight: "bold"
+                }
+
        }); // fin de la variable de creation de marker
        markers.push(marker);
 
@@ -143,27 +162,13 @@ class Mestations
       });
     }
 
-  displayElem() {
-    /*
-    let name =  this.name;
-    let address = this.address;
-    let available_bike_stands = this.available_bike_stands;
-    let available_bikes = this.available_bikes;
-*/
-    this.map.style.margin = "0 10px";
-    nomStation.innerHTML = "Station: " +  this.name;
-      //sessionStorage.setItem('stationName',this.name);
-    //  sessionStorage.getItem('stationName');
-    adressStation.innerHTML = "Adresse: " +  this.address;
-    //  sessionStorage.setItem('stationAddress',this.address);
-    //  sessionStorage.getItem('stationAddress');
-      attachesDispos.innerHTML = "Places disponibles: " + this.available_bike_stands;
-    //  sessionStorage.setItem('placesDispo',this.available_bike_stands);
-    //  sessionStorage.getItem('placesDispo');
-      bikesAvailable.innerHTML = "Vélos disponibles: " + this.available_bikes;
-    //  sessionStorage.setItem('velosdispo',this.available_bikes);
-    //  sessionStorage.getItem('velosdispo');
+  displayElem() {// pour faire apparaitre les infos des stations
 
+    nomStation.innerHTML = "Station: " +  this.name;
+    adressStation.innerHTML = "Adresse: " +  this.address;
+    sessionStorage.setItem('stationAddress',this.address);
+    attachesDispos.innerHTML = "Places disponibles: " + this.available_bike_stands;
+    bikesAvailable.innerHTML = "Vélos disponibles: " + this.available_bikes;
     this.reservation.style.display = 'none';
 
     if (this.status === 'OPEN') {
@@ -175,9 +180,5 @@ class Mestations
       etatStation.style.color = 'red';
       document.getElementById('stationFermee').innerHTML = "Cette station est fermée !";
     }
-
-  //  if(sessionStorage.getItem('stationName')){
-  //    this.displayElem();
-  //  }
   }
 }
