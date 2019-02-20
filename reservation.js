@@ -9,7 +9,6 @@ class Reservation
       this.envoyer = document.getElementById('envoyer');
       this.decompte = document.getElementById('decompte');
       this.infoStations = document.getElementById('infoStations');
-    //  this.dataURL = sessionStorage.getItem('dataURL');
       this.compteur = sessionStorage.getItem('compteur');
       this.nom = document.getElementById('nom');
       this.prenom = document.getElementById('prenom');
@@ -21,7 +20,6 @@ class Reservation
       this.tempsRestant = sessionStorage.getItem('tempsRestant');
       this.map = document.getElementById('map');
       this.canvasimg = document.getElementById('canvasimg');
-    //  this.drawing = sessionStorage.getItem('this.drawing');
       this.verifForm();
       this.chrono();
       console.log(this.compteur);
@@ -69,17 +67,25 @@ verifForm() {
 
 // verifier la signature
 
-  //  const isDrawing  = sessionStorage.getItem('this.isDrawing');
     if(sessionStorage.getItem('this.compteur') <= 0) {
       event.preventDefault();
       console.log(this.compteur);
       console.log("erreurs canva");
       erreurs.push('Veuillez signer votre réservation !');
-    };
+    }else{
+      // test valider avec la touche entrée
 
+                 let code=event.which || event.keyCode; //Selon le navigateur c'est which ou keyCode
+                 if (code==13) { //le code de la touche Entrée
+                     document.getElementById("formulaire").submit();
+                 }
+
+    };
     this.erreurDiv.innerHTML = erreurs[0];
     console.log(erreurs);
+
   });
+
 }
 
 // SI PAS DE RESERVATION EN COURS ON ENVOIE UN DECOMPTE DE 20 MINUTES
@@ -109,13 +115,6 @@ chrono() {
     this.map.style.display = 'none';
   });
 }
-
-jouerSon() {
-  this.envoyer.addEventListener('click', ()=> {
-    const son = document.getElementById("dring");
-    son.play();
-  })
- }
 }
 
 
@@ -146,8 +145,8 @@ class Timer
     this.time = document.getElementById('time');
     this.refresh = document.getElementById('refresh');
     this.map = document.getElementById('map');
-  //  this.canvas = document.getElementById('canvas');
-    const decompte = document.getElementById('decompte');
+    this.envoyer = document.getElementById('envoyer');
+  //  const decompte = document.getElementById('decompte');
     const time = document.getElementById('time');
       this.annulation();
   }
@@ -157,7 +156,7 @@ class Timer
 }
 
   startTimer() {
-
+    //this.jouerSon();
     this.startTimer = setInterval( ()=> {
       let minute = Math.floor(this.tempsRestant / 60);
         sessionStorage.setItem('minute', minute);
@@ -197,19 +196,13 @@ annulation() {
       clearInterval(this.startTimer);
       sessionStorage.clear();
       window.location.reload();
-    //  this.infoStations.style.display = 'none';
-    //  this.reservation.style.display = 'none';
       this.decompte.style.display = 'block';
       this.refresh.style.display = "block";
-    //  time.style.display = "none"
       this.etat.style.display = 'none';
       this.nomResa.style.display = 'none';
       adresse.style.display = 'none';
       this.annuler.style.display = 'none';
-    //  this.etat.innerHTML = "Etat : Ouvert";
       this.map.style.display = 'block';
-
-      //map.style.margin = "0 auto";
       this.infoicons.style.display = 'flex';
    })
  }

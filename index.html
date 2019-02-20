@@ -176,7 +176,7 @@
         <span id="prenom_vide"></span>
       <br>
         <span id="signatureOb" class="champs"> Signez dans le cadre (obligatoire)</span>
-        <canvas id="canvas" class="champs"  width="270" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
+        <canvas id="canvas" onkeypress="pressEnter(event);" class="champs"  width="270" height="200">Si vous ne voyez pas de zone de signature c'est que votre navigateur ne prend pas en compte cet element,veuillez mettre votre navigateur a jour.</canvas>
         <div id="canvasimg"></div>
         <input class="champs" id="effacer" type="button" value="Effacer">
         <input class="champs" id="envoyer" name="envoi" type="submit" value="Envoyer">

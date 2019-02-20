@@ -420,6 +420,10 @@ span {
   font-family: sans-serif,arial;
 }
 
+#dring {
+  display: none;
+}
+
 @media all and (max-width: 1024px) {  /* ipad */
 
 #heure {
