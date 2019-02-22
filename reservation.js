@@ -19,7 +19,7 @@ class Reservation
       this.finDecompte = sessionStorage.getItem('finDecompte');
       this.tempsRestant = sessionStorage.getItem('tempsRestant');
       this.map = document.getElementById('map');
-      this.canvasimg = document.getElementById('canvasimg');
+      this.canvas = document.getElementById('canvas');
       this.verifForm();
       this.chrono();
       console.log(this.compteur);
@@ -29,6 +29,7 @@ class Reservation
 verifForm() {
 
   this.envoyer.addEventListener('click', (event) => {
+
     const regex = new RegExp("[a-zA-Z_-éè ]{2,40}");
     let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
 
@@ -66,21 +67,16 @@ verifForm() {
     };
 
 // verifier la signature
-
+//this.canvas.onfocus = ()=>{
     if(sessionStorage.getItem('this.compteur') <= 0) {
-      event.preventDefault();
+  console.log(this.canvas.onfocus);
+  event.preventDefault();
       console.log(this.compteur);
       console.log("erreurs canva");
       erreurs.push('Veuillez signer votre réservation !');
-    }else{
-      // test valider avec la touche entrée
-
-                 let code=event.which || event.keyCode; //Selon le navigateur c'est which ou keyCode
-                 if (code==13) { //le code de la touche Entrée
-                     document.getElementById("formulaire").submit();
-                 }
-
     };
+//};
+//  };
     this.erreurDiv.innerHTML = erreurs[0];
     console.log(erreurs);
 
@@ -146,7 +142,7 @@ class Timer
     this.refresh = document.getElementById('refresh');
     this.map = document.getElementById('map');
     this.envoyer = document.getElementById('envoyer');
-  //  const decompte = document.getElementById('decompte');
+    this.ancreARetirer = document.getElementById('ancreMilieu');
     const time = document.getElementById('time');
       this.annulation();
   }
@@ -156,7 +152,6 @@ class Timer
 }
 
   startTimer() {
-    //this.jouerSon();
     this.startTimer = setInterval( ()=> {
       let minute = Math.floor(this.tempsRestant / 60);
         sessionStorage.setItem('minute', minute);
@@ -177,6 +172,7 @@ class Timer
         this.refresh.style.display = "none";
         this.annuler.style.display = 'block';
         this.infoicons.style.display = 'flex';
+        this.ancreARetirer.style.display = 'none';
       }
       if (this.tempsRestant == 0) {
         clearInterval(this.startTimer);

@@ -89,24 +89,34 @@ header p {
   color: #ffffff;
 }
 
+#heure {
+  position: fixed;
+  right: 30px;
+  top: 150px;
+  background-color: #ffffff;
+  width: 150px;
+  height: 60px;
+  line-height: 65px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+/* MISE EN PLACE DU SLIDER */
+
+#carrousel {
+  position: relative;
+  height: 500px;
+
+}
+
 #panorama {
   display: flex;
   justify-content: center;
-}
-
-#carrousel {
-    position: relative;
-    height: 500px;
-  }
-
-
-#carrousel button {
-  cursor: pointer;
-  position: absolute;
-}
-
-#carrousel ul li {
   list-style: none;
+}
+
+#panorama li {
+  justify-content: center;
 }
 
 #carrousel img {
@@ -120,56 +130,35 @@ header p {
   height: 500px;
 }
 
-#carrousel figure {
-  background-size: cover;
-  border-radius: 50%;
-  background-size: cover;
-  border-radius: 50%;
-  background-size: cover;
-  border-radius: 50%;
-}
-
-#decompte a {
-  text-decoration: none;
-  color: white;
-}
-
-#heure {
-  transform: translateX(728px);
-  background-color: #ffffff;
-  width: 120px;
-  height: 50px;
-  padding-top: 5px;
-  padding-left: 30px;
-  border-radius: 50%;
-}
-
-#arrow-right button {
+#arrow-right {
   position: absolute;
   background-color: #ffffff;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  font-size: 1.2em;
   right: 390px;
   top: 50%;
   color: #6e7170;
   outline: 0;
+  cursor: pointer;
+  text-align: center;
 }
-#arrow-left button {
+
+#arrow-left {
   position: absolute;
   background-color: #ffffff;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  font-size: 1.2em;
   left: 420px;
   top: 50%;
   color: #6e7170;
   outline: 0;
+  cursor: pointer;
+  text-align: center;
 }
 
-#pause button {
+#pause {
   position: absolute;
   background-color: #ffffff;
   width: 50px;
@@ -181,9 +170,11 @@ header p {
   line-height: 20px;
   color: #6e7170;
   outline: 0;
+  text-align: center;
+  cursor: pointer;
 }
 
-#lecture button {
+#lecture {
   position: absolute;
   background-color: #ffffff;
   width: 50px;
@@ -194,7 +185,14 @@ header p {
   top: 70%;
   color: #6e7170;
   outline: 0;
+  text-align: center;
+  cursor: pointer;
 }
+
+#carrousel i {
+  transform: translateY(25%);
+}
+
 .slide .hide {
   margin:0 auto;
 }
@@ -210,24 +208,28 @@ header p {
 }
 .legende {
   position: absolute;
+  transform: translateX(11%);
   border-radius: 50%;
   top: 200px;
   color: #000;
   background-size: cover;
-    border-radius: 50%;
   width: 70%;
   font-size: 1.4em;
   text-align: center;
   background-color: #9fab8a;
-  margin: 25px;
 }
 
 .opaque {
   font-size: 1em;
-  width: 80%;
+  width: 75%;
   height: 20%;
   margin-top: 30px;
   margin-left: 50px;
+}
+
+#decompte a {
+  text-decoration: none;
+  color: white;
 }
 
  .champs  {
@@ -235,6 +237,8 @@ header p {
   margin: 0 auto;
   text-align: center;
 }
+
+/* MISE EN PLACE DE LA PARTIE CENTRALE (INFOICONS ET MAP) */
 
 #basse {
   position: relative;
@@ -305,6 +309,7 @@ span {
   text-align: center;
 }
 
+/* MISE EN PLACE DES INFOS DES STATIONS ET DE LA RESERVATION */
 
 #listeInfos {
   list-style: none;
@@ -344,24 +349,6 @@ span {
   font-size: 0.5em;
 }
 
-#decompte {
-  display: none;
-  font-family: sans-serif,arial;
-  width: 90%;
-  height: auto;
-  border: 2.5px solid #ffffff;
-  border-radius: 10px 10px 10px 10px;
-  background-color: #6e7170;
-  color: #ffffff;
-  font-size: 0.6em;
-  margin: 0 auto;
-  padding: 10px 10px;
-  text-align: center;
-}
-
-#time {
-  font-size: 1.4em;
-}
 #envoyer, #effacer {
   border-radius: 10px 10px 10px 10px;
   background-color: #ffffff;
@@ -394,15 +381,9 @@ span {
   margin: 0 12px;
 }
 
-#pied {
-  margin-bottom: 30px;
-}
-
 #velo {
   color: #6fd27b;
 }
-
-
 
 #signatureOb {
   font-size: 0.5em;
@@ -414,23 +395,42 @@ span {
   margin: 0 auto;
 }
 
+/* MISE EN PLACE DU DECOMPTE */
+
+#decompte {
+  display: none;
+  font-family: sans-serif,arial;
+  width: 90%;
+  height: auto;
+  border: 2.5px solid #ffffff;
+  border-radius: 10px 10px 10px 10px;
+  background-color: #6e7170;
+  color: #ffffff;
+  font-size: 0.6em;
+  margin: 0 auto;
+  padding: 10px 10px;
+  text-align: center;
+}
+
+#time {
+  font-size: 1.4em;
+}
+
+#pied {
+  margin-bottom: 30px;
+}
+
 #refresh {
   color: white;
   text-decoration: none;
   font-family: sans-serif,arial;
 }
 
-#dring {
-  display: none;
-}
+/* MISE EN PLACE DES MEDIAQUERIES */
 
 @media all and (max-width: 1024px) {  /* ipad */
 
-#heure {
-  transform: translateX(318px);
-  padding-top: 5px;
-  padding-left: 30px;
-}
+
   /* BURGER */
 
   #container-header {
@@ -532,9 +532,15 @@ span {
     transition-delay: .5s;
   }
   /* FIN BURGER */
+
+  #heure {
+  display: none;
+  }
+  
   header h1 {
     position: relative;
   }
+
   .legende {
     font-size: 1em;
     top: 150px;
@@ -553,42 +559,22 @@ span {
 }
 /* test responsive de mon slider*/
 
-#panorama {
-  display: flex;
-  justify-content: center;
-}
-
-#carrousel {
-    position: relative;
-    height: 500px;
-  }
-
-#carrousel ul li {
-  position: absolute;
-  list-style: none;
-}
-
-#carrousel img {
-
-      width: 400px;
-      height: 400px;
-}
-
-#arrow-right button {
+#arrow-right {
   right: 0px;
   top: 50%;
 }
-#arrow-left button {
+
+#arrow-left {
   left: 0px;
   top: 50%;
 }
 
-#pause button {
+#pause {
   left: 0px;
   top: 70%;
 }
 
-#lecture button {
+#lecture {
   right: 0px;
   top: 70%;
 }
@@ -662,44 +648,37 @@ span {
   font-size: 0.5em;
 }
 
-  #panorama {
-    display: flex;
-    justify-content: center;
-  }
-
-  #carrousel {
-    position: relative;
-    height: 500px;
-  }
-
-  #carrousel figure {
-    width: 25%;
-  }
-
-  #carrousel img {
-    width: 300px;
-    height: 300px;
-  }
-
-  #heure {
+#heure {
   display: none;
-  }
+}
 
-  #arrow-right button {
+#carrousel img {
+  background-size: cover;
+  border-radius: 50%;
+  background-size: cover;
+  border-radius: 50%;
+  background-size: cover;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+}
+
+  #arrow-right {
     right: 0px;
     top: 50%;
   }
-  #arrow-left button {
+
+  #arrow-left {
     left: 0px;
     top: 50%;
   }
 
-  #pause button {
+  #pause {
     left: 0px;
     top: 70%;
   }
 
-  #lecture button {
+  #lecture {
     right: 0px;
     top: 70%;
   }

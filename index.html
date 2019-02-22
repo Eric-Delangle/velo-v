@@ -9,6 +9,8 @@
     <link href="style.css" rel="stylesheet"/>
   </head>
 <body>
+  <!-- MISE EN PLACE DU SYSTEME DE BURGER POUR LE RESPONSIVE-->
+
   <div id="container-header">
   <div id="navigation">
     <!--burger-->
@@ -36,8 +38,8 @@
     <p>La plateforme interactive de location de vélos pour Lyon</p>
   </header>
 
-    <!-- SECTION SLIDER -->
-<!--<section id="haute">-->
+    <!-- CREATION DU DIAPORAMA -->
+
   <div id="heure"></div>
   <div id ="carrousel">
     <ul id="panorama">
@@ -74,27 +76,28 @@
         </figure>
       </li>
     </ul>
+
+<!-- placement des flêches gauche et droite -->
+
   <div id="arrow-left">
-    <button id="prev">
-      <i class="fa fa-caret-left"></i>
-    </button>
+    <i class="fa fa-caret-left"></i>
   </div>
   <div id="arrow-right">
-    <button id="next">
-      <i class="fa fa-caret-right"></i>
-    </button>
+    <i class="fa fa-caret-right"></i>
   </div>
+
+  <!-- placement des boutons pause et lecture -->
+
   <div id="pause">
-    <button id="stop">
       <i class="fa fa-pause"></i>
-    </button>
   </div>
   <div id="lecture">
-    <button id="play">
       <i class="fa fa-play"></i>
-    </button>
   </div>
-  </div>
+</div>
+<!-- fin des placements des options du slider-->
+
+<!-- PLACEMENT DES ANCRES -->
   <div id="centrage-ancre">
   <div class="cadreancre">
   <p><a href="#infoicons" class="ancre">Chercher mon vélo</a></p>
@@ -103,9 +106,9 @@
   <p><a href="#navigation" class="ancre">Remonter en haut de la page</a></p>
 </div>
 </div>
-<!--</section>-->
+<!-- FIN DU SLIDER-->
 
-<!-- SECTION MILIEU-->
+<!-- AFFICHAGE DES MARQUEURS ET EXPLICATIONS -->
 
 <section id="milieu">
   <div id="infoicons">
@@ -181,12 +184,11 @@
         <input class="champs" id="effacer" type="button" value="Effacer">
         <input class="champs" id="envoyer" name="envoi" type="submit" value="Envoyer">
       </form>
-      <!--  <audio autoplay id="dring" src="sonnette.wav">
-      </audio>-->
-
-</div>
-
+    </div>
 </section>
+
+<!-- MISE EN PLACE DE LA PARTIE AFFICHAGE DU DECOMPTE DANS LE FOOTER -->
+
 <footer id="pied">
       <div id ="decompte">
         <span id="velo">
@@ -204,11 +206,12 @@
         <p id ="etat"></p>
         <p id ="adresse"></p>
         <input class="champs" id="annuler" type="button" value="Annuler">
-    <!--   <input type="button" value="Rafraichir" id="refresh"> -->
     <a href="javascript:window.location.reload()" id="refresh">Recharger la page</a>
     <a href="#navigation" id="navigation">Remonter en haut de la page</a>
-      </div>
+  </div>
 </footer>
+
+<!-- SCRIPTS NECESSAIRES AU FONCTIONNEMENT DU SITE -->
 <noscript>Merci d'activer votre JavaScript.</noscript>
 <script src="slider.js"></script>
 <script src="map.js"></script>

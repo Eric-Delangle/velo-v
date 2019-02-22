@@ -26,11 +26,11 @@ constructor() {
     }
 
 init() {
-      document.getElementById('next').addEventListener('click', ()=>{
+      document.getElementById('arrow-right').addEventListener('click', ()=>{
         clearInterval(this.defilement);
         this.goTo(1)
       });
-      document.getElementById('prev').addEventListener('click', ()=>{
+      document.getElementById('arrow-left').addEventListener('click', ()=>{
         clearInterval(this.defilement);
         this.goTo(-1)
       });

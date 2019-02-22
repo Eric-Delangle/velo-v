@@ -1,6 +1,6 @@
 class Signature
  {
-	constructor(){	// Initialisation des paramÃ¨tres du canvas
+	constructor(){	// Initialisation des paramètres du canvas
 		this.canvas = document.getElementById("canvas")
 		this.ctx = this.canvas.getContext("2d")
 		this.ctx.strokeStyle = "#222222";
@@ -11,9 +11,9 @@ class Signature
 		// Bouton pour effacer et création de la variable du compteur
 		this.effacer = document.getElementById("effacer");
     this.compteur = 0;
-
-		this.canvasEvents()
-	}
+    this.canvasEvents();
+  //  this.validCanvas();
+  }
 
 	canvasEvents(){
 		//Evénements PC
@@ -57,7 +57,7 @@ class Signature
 			let touch = e.touches[0];
       this.compteur++;
       sessionStorage.setItem('this.compteur',this.compteur);
-      sessionStorage.setItem('this.drawing',this.drawing);
+    //  sessionStorage.setItem('this.drawing',this.drawing);
 			let mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
 				clientX: touch.clientX,
 				clientY: touch.clientY
@@ -117,6 +117,15 @@ class Signature
 		this.canvas.width = this.canvas.width;
 		this.ctx.lineWidth = 3;
     this.drawing = false;
-    sessionStorage.setItem('this.drawing',this.drawing);
+  //  sessionStorage.setItem('this.drawing',this.drawing);
 	}
+  /*
+  // test valider avec la touche entrée
+validCanvas(e){
+             let code = e.keyCode; //Selon le navigateur c'est which ou keyCode
+             if (code == 13) { //le code de la touche Entrée
+                 document.getElementById("formulaire").submit();
+             }
+           }
+           */
 }
