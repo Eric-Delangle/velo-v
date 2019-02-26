@@ -5,6 +5,7 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @keyframes velo {
 	0% {
 		transform: translateX(-35%);
@@ -113,6 +114,7 @@ header p {
   display: flex;
   justify-content: center;
   list-style: none;
+  width: 97%;
 }
 
 #panorama li {
@@ -130,63 +132,40 @@ header p {
   height: 500px;
 }
 
-#arrow-right {
+.bouton-style {
   position: absolute;
   background-color: #ffffff;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  right: 390px;
-  top: 50%;
-  color: #6e7170;
+  box-shadow: 5px 5px;
+  border: 2px solid orange;
   outline: 0;
   cursor: pointer;
   text-align: center;
+  color: #6e7170;
+}
+
+#arrow-right {
+  right: 390px;
+  top: 50%;
 }
 
 #arrow-left {
-  position: absolute;
-  background-color: #ffffff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   left: 420px;
   top: 50%;
-  color: #6e7170;
-  outline: 0;
-  cursor: pointer;
-  text-align: center;
 }
 
 #pause {
-  position: absolute;
-  background-color: #ffffff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   font-size: 1em;
   left: 380px;
   top: 70%;
-  line-height: 20px;
-  color: #6e7170;
-  outline: 0;
-  text-align: center;
-  cursor: pointer;
 }
 
 #lecture {
-  position: absolute;
-  background-color: #ffffff;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   font-size: 1em;
   right: 340px;
   top: 70%;
-  color: #6e7170;
-  outline: 0;
-  text-align: center;
-  cursor: pointer;
 }
 
 #carrousel i {
@@ -265,7 +244,7 @@ header p {
 }
 
 .ancre:hover {
-  color: #000000;
+  color: orange;
 }
 
 #infoicons {
@@ -491,17 +470,18 @@ span {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100px;
+    height: 70px;
     z-index: 3;
     transition: .5s;
     transition-delay: .5s;
     overflow: hidden;
   }
+
   #container-header input ~ nav > ul {
     text-align: center;
     position: fixed;
     flex-direction: column;
-    top: 10%;
+    top: 5px;
     height: auto;
     margin: 0 12%;
   }
@@ -518,13 +498,13 @@ span {
     color: #6e7170;
     font-weight: 700;
     font-family: arial,sans-serif;
-    font-size: 0.5em;
+    font-size: 0.6em;
     display: block;
-    padding: 39px;
+    margin-top: 20px;
   }
 
   #container-header input:checked ~ nav {
-    height: 50%;
+    height: 20%;
     transition-delay: 0s;
   }
   #container-header input:checked ~ nav > ul > li {
@@ -536,7 +516,7 @@ span {
   #heure {
   display: none;
   }
-  
+
   header h1 {
     position: relative;
   }
@@ -551,31 +531,33 @@ span {
   }
 
   .opaque {
-    width: 100%;
-    line-height: 25px;
-    margin-left: 0;
-    white-space: normal;
-
+    width: 200px;
+    height: 150px;
+    margin: 20px auto;
 }
 /* test responsive de mon slider*/
 
+#panorama {
+  width: 90%;
+}
+
 #arrow-right {
-  right: 0px;
+  right: 10px;
   top: 50%;
 }
 
 #arrow-left {
-  left: 0px;
+  left: 10px;
   top: 50%;
 }
 
 #pause {
-  left: 0px;
+  left: 10px;
   top: 70%;
 }
 
 #lecture {
-  right: 0px;
+  right: 10px;
   top: 70%;
 }
 /*fin test responsive slider */
@@ -631,6 +613,42 @@ span {
 
 @media all and (max-device-width: 480px) {  /* smartphone */
 
+/* BURGER */
+
+#container-header input ~ nav {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 3;
+  transition: .5s;
+  transition-delay: .5s;
+  overflow: hidden;
+}
+
+#container-header input ~ nav > ul > li > a {
+  margin-top: 0;
+}
+
+#container-header input + label {
+  position: fixed;
+  top: 10px;
+  right: 40px;
+  height: 60px;
+  width: 35px;
+  z-index: 5;
+}
+
+#container-header input ~ nav > ul > li > a {
+  padding: 10px;
+}
+
+#navigation a {
+  margin: 0;
+}
+
   #heure {
     display: none;
   }
@@ -663,23 +681,48 @@ span {
   height: 300px;
 }
 
+#panorama {
+  width: 80%;
+}
+
   #arrow-right {
-    right: 0px;
+    right: 5px;
     top: 50%;
   }
 
   #arrow-left {
-    left: 0px;
+    left: 5px;
     top: 50%;
   }
 
   #pause {
-    left: 0px;
+    left: 5px;
     top: 70%;
   }
 
   #lecture {
-    right: 0px;
+    right: 5px;
     top: 70%;
   }
   /*fin test responsive slider */
+  ::placeholder {
+  color: red;
+  font-size: 0.5em;
+}
+
+.opaque {
+  line-height: 35px;
+  margin: 0 auto;
+  white-space: normal;
+  width: 200px;
+  height: 150px;
+  margin-top: 30px;
+}
+
+.legende {
+  width: 65%;
+}
+
+#annuler {
+  font-size: 0.7em;
+}

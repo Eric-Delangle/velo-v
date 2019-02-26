@@ -9,6 +9,7 @@ class Reservation
       this.envoyer = document.getElementById('envoyer');
       this.decompte = document.getElementById('decompte');
       this.infoStations = document.getElementById('infoStations');
+    //  this.boolen = sessionStorage.getItem('this.boolean');
       this.compteur = sessionStorage.getItem('compteur');
       this.nom = document.getElementById('nom');
       this.prenom = document.getElementById('prenom');
@@ -22,7 +23,6 @@ class Reservation
       this.canvas = document.getElementById('canvas');
       this.verifForm();
       this.chrono();
-      console.log(this.compteur);
 }
 // VERIFICATION DU FORMULAIRE
 
@@ -31,13 +31,12 @@ verifForm() {
   this.envoyer.addEventListener('click', (event) => {
 
     const regex = new RegExp("[a-zA-Z_-éè ]{2,40}");
-    let erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
+    const erreurs = []; // tableau vide d'erreur pour les inserer au fur et a mesure
 
 // Vérifier que les champs ne soient pas vides
 
     if (this.prenom.value =='' || this.nom.value == '') {
       event.preventDefault();
-      console.log("erreurs length");
       erreurs.push('Veuillez remplir tous les champs !');
     };
 
@@ -46,7 +45,6 @@ verifForm() {
     if (this.nom.value.length <= 1 || this.prenom.value.length <= 1 ) {
       console.log(this.nom.value.length);
       event.preventDefault();
-      console.log("erreurs minlength");
       erreurs.push('Veuillez entrer au moins deux caractères !');
     };
 
@@ -54,7 +52,6 @@ verifForm() {
 
     if (this.nom.value.length > 25 || this.prenom.value.length > 25) {
       event.preventDefault();
-      console.log("erreurs maxlength");
       erreurs.push('Veuillez ne pas dépasser 25 caractères !');
     };
 
@@ -62,26 +59,18 @@ verifForm() {
 
     if (!regex.test(this.prenom.value) || !regex.test(this.nom.value)) {
        event.preventDefault();
-       console.log("erreurs regex");
        erreurs.push('Veuillez n\'utiliser que des lettres !');
     };
 
 // verifier la signature
-//this.canvas.onfocus = ()=>{
+
     if(sessionStorage.getItem('this.compteur') <= 0) {
-  console.log(this.canvas.onfocus);
-  event.preventDefault();
-      console.log(this.compteur);
-      console.log("erreurs canva");
+      event.preventDefault();
       erreurs.push('Veuillez signer votre réservation !');
     };
-//};
-//  };
+
     this.erreurDiv.innerHTML = erreurs[0];
-    console.log(erreurs);
-
   });
-
 }
 
 // SI PAS DE RESERVATION EN COURS ON ENVOIE UN DECOMPTE DE 20 MINUTES
@@ -94,11 +83,11 @@ chrono() {
   this.formulaire.addEventListener('submit', (e)=> { // lorsque je soumet mon formulaire
     e.preventDefault();// la je garde la main.
     const debutDecompte = new Date();
-      sessionStorage.setItem('debutDecompte', debutDecompte);//sauvegarde de la date de début de reservation
+        sessionStorage.setItem('debutDecompte', debutDecompte);//sauvegarde de la date de début de reservation
     const finDecompte = new Date (debutDecompte);
       finDecompte.setMinutes ( debutDecompte.getMinutes() + 20 );
         sessionStorage.setItem('finDecompte', finDecompte);//sauvegarde de la date de fin de reservation
-    let tempsRestant = (finDecompte - debutDecompte) / 1000; // pour avoir mon tempsRestant en secondes
+    const tempsRestant = (finDecompte - debutDecompte) / 1000; // pour avoir mon tempsRestant en secondes
         sessionStorage.setItem('tempsRestant', tempsRestant);//sauvegarde du temps restant a décompter
 
     localStorage.setItem('nom', nom.value);
@@ -125,17 +114,15 @@ class Timer
     this.debutDecompte = sessionStorage.getItem('debutDecompte');
     this.finDecompte = sessionStorage.getItem('finDecompte');
     this.tempsRestant = sessionStorage.getItem('tempsRestant');
+    this.adresse = document.getElementById('adresse');
     this.address = sessionStorage.getItem('station_address');
     this.name = sessionStorage.getItem('station_name');
     this.oupsRefresh = sessionStorage.getItem('oupsRefresh');
     this.decompte = document.getElementById('decompte');
-    this.adresse = document.getElementById('adresse');
     this.annuler = document.getElementById('annuler');
     this.infoStations = document.getElementById('infoStations');
     this.infoicons = document.getElementById('infoicons');
     this.reservation = document.getElementById('reservation');
-    this.minutes = document.getElementById('minutes');
-    this.secondes = document.getElementById('secondes');
     this.nomResa = document.getElementById('nomResa');
     this.etat = document.getElementById('etat');
     this.time = document.getElementById('time');
@@ -143,8 +130,7 @@ class Timer
     this.map = document.getElementById('map');
     this.envoyer = document.getElementById('envoyer');
     this.ancreARetirer = document.getElementById('ancreMilieu');
-    const time = document.getElementById('time');
-      this.annulation();
+    this.annulation();
   }
 
   stopTimer() {
@@ -162,11 +148,11 @@ class Timer
 
       if (this.tempsRestant > 0) {
         this.decompte.style.display = "block";
-        map.style.display = 'none';
+        this.map.style.display = 'none';
         this.infoicons.style.display = 'none';
-        time.innerHTML = "Un vélo vous est reservé pendant  " + minute + " minute" + (minute > 1 ? 's':'') + " " + seconde  +" seconde" + (seconde > 1 ? 's':'') +" à cette station : " + this.name  + ".";
+        this.time.innerHTML = "Un vélo vous est reservé pendant  " + minute + " minute" + (minute > 1 ? 's':'') + " " + seconde  +" seconde" + (seconde > 1 ? 's':'') +" à cette station : " + this.name  + ".";
         this.nomResa.innerHTML = "A votre nom: " + this.prenom + " " + this.nom;
-        adresse.innerHTML = 'A cette adresse : ' + this.address  + ".";
+        this.adresse.innerHTML = 'A cette adresse : ' + this.address  + ".";
         this.etat.innerHTML = "Etat : Ouvert";
         this.etat.style.color = '#6fd27b';
         this.refresh.style.display = "none";
@@ -177,9 +163,9 @@ class Timer
       if (this.tempsRestant == 0) {
         clearInterval(this.startTimer);
         sessionStorage.clear();
-        time.innerHTML = 'Votre réservation a expiré';
+        this.time.innerHTML = 'Votre réservation a expiré';
         this.refresh.style.display = "block";
-        nomResa.style.display = 'none';
+        this.nomResa.style.display = 'none';
         this.annuler.style.display = 'none';
         this.map.style.display = 'block';
       }
@@ -196,7 +182,7 @@ annulation() {
       this.refresh.style.display = "block";
       this.etat.style.display = 'none';
       this.nomResa.style.display = 'none';
-      adresse.style.display = 'none';
+      this.adresse.style.display = 'none';
       this.annuler.style.display = 'none';
       this.map.style.display = 'block';
       this.infoicons.style.display = 'flex';

@@ -1,7 +1,7 @@
 // Exécute un appel AJAX GET
 // Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
 function ajaxGet(url, callback) {
-    let req = new XMLHttpRequest();
+    const req = new XMLHttpRequest();
     req.open("GET", url);
     req.addEventListener("load", function () {
       if (req.status >= 200 && req.status < 400) {
@@ -35,8 +35,8 @@ class Mamap
 // Ici je relance mon chrono si un rafraichissement de la page a eu lieu par mégarde pendant une reservation
  restartChrono() {
    if (this.finDecompte != null) {
-    let finDecompte = new Date(sessionStorage.getItem('finDecompte'));
-    let oupsRefresh = new Date();
+    const finDecompte = new Date(sessionStorage.getItem('finDecompte'));
+    const oupsRefresh = new Date();
       sessionStorage.setItem('oupsRefresh', oupsRefresh);
     this.tempsRestant = Math.floor((finDecompte - oupsRefresh) / 1000);
       sessionStorage.setItem('tempsRestant', this.tempsRestant);
@@ -58,9 +58,9 @@ class Mamap
 // Initialisation de la carte
  initMap() {
 // je definis la position a Lyon
-    let lyon = {lat: 45.750000, lng: 4.850000};
+    const lyon = {lat: 45.750000, lng: 4.850000};
 // La carte centree a Lyon
-    let map = new google.maps.Map(document.getElementById('map'), {
+    const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: lyon
   });
@@ -68,11 +68,11 @@ class Mamap
   ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=7f9b27baaf886205613fd37511619e7599ac0466&callback=initMap",
     function (reponse) {
 // Transforme la reponse en tableau d'objets JavaScript
-     let stations = JSON.parse(reponse);
-     let markers = [];
+     const stations = JSON.parse(reponse);
+     const markers = [];
      stations.forEach((elem)=> { // elem correspond a une station
 // Initialise un marker
-     let statuStation = function initMarkers() {// si je ne met pas ça dans une variable ça marche pas
+     const statuStation = function initMarkers() {// si je ne met pas ça dans une variable ça marche pas
 // Icone en fonction de l'ouverture ou non de la station
 
      if (elem.status === "OPEN" && elem.available_bikes > 0) {
@@ -86,7 +86,7 @@ class Mamap
 
 statuStation();
 
-      let marker = new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: elem.position,
         map: map,
         icon: elem.icon,
@@ -113,7 +113,7 @@ statuStation();
       reserver.style.display = 'none';
     }
     if (elem.status === "CLOSED") {
-      let etatStation = document.getElementById('etatStation');
+      const etatStation = document.getElementById('etatStation');
       infoStations.style.display = "none";
       etatStation.innerHTML = "Etat : Fermé";
       etatStation.style.color = 'red';
@@ -122,7 +122,7 @@ statuStation();
     }
   })
  })// fin de la methode foreach
- let markerCluster = new MarkerClusterer(map, markers,
+ const markerCluster = new MarkerClusterer(map, markers,
     {
      imagePath : 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
     });// fin de ma variable de regroupement de markers
@@ -144,13 +144,13 @@ class Mestations
     this.reservation = document.getElementById('reservation');
     this.map = document.getElementById('map');
 
-    let reserver = document.getElementById('reserver');
-    let reservation = document.getElementById('reservation');
+    const reserver = document.getElementById('reserver');
+    const reservation = document.getElementById('reservation');
     this.resaVelo();
   }
 
   resaVelo() {
-    let reserver = document.getElementById('reserver');
+    const reserver = document.getElementById('reserver');
       reserver.addEventListener('click', ()=> {
         reservation.style.display = "block";
         reserver.style.display = 'none';

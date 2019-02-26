@@ -1,5 +1,5 @@
 
-// dans cet objet j'appele toutes mes classes
+// dans cet objet j'appele toutes mes classes et certaines méthodes
 class Main
 {
   constructor() {
@@ -8,9 +8,5 @@ class Main
     this.signature = new Signature();
     this.mamap.initMap();
     this.slider.init();
-  //  this.signature.drawCanvas();
-  //  this.signature.touchCanvas();
-  //  this.signature.displayCanvas();
-  //  this.signature.clearCanvas();
   }
 }

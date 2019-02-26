@@ -10,9 +10,9 @@ class Signature
 		this.lastPos = this.mousePos;
 		// Bouton pour effacer et création de la variable du compteur
 		this.effacer = document.getElementById("effacer");
+  //  this.boolean = false;
     this.compteur = 0;
     this.canvasEvents();
-  //  this.validCanvas();
   }
 
 	canvasEvents(){
@@ -22,31 +22,32 @@ class Signature
       sessionStorage.setItem('this.drawing', this.drawing);
 			this.lastPos = this.getMousePos(e);
       this.compteur++;
+    //  this.boolean = true;
       sessionStorage.setItem('this.compteur',this.compteur);
-      console.log(this.compteur);
+      //  sessionStorage.setItem('this.boolean',this.boolean);
 		});
 		this.canvas.addEventListener("mouseup",(e)=> {
 			this.drawing = false;
 		});
 		this.canvas.addEventListener("mousemove",(e)=> {
-			this.mousePos = this.getMousePos(e);
-			this.renderCanvas()
+			this.mousePos = this.getMousePos(e);// la je recupère les positions de mon dessin
+			this.resultCanvas();// rendu final de la signature
 		});
 
 		//Evénements Tablette/Mobile
 
 		// Empèche de scroller la page lorsqu'on signe
-		document.body.addEventListener("touchstart",(e)=> {
+		document.body.addEventListener("touchstart",(e)=> {// si la cible du doigt est le canvas alors on garde la main
 			if (e.target == this.canvas) {
 				e.preventDefault();
 			}
 		});
-		document.body.addEventListener("touchend",(e)=> {
+		document.body.addEventListener("touchend",(e)=> {// idem si on stop de toucher l'écran
 			if (e.target == this.canvas) {
 				e.preventDefault();
 			}
 		});
-		document.body.addEventListener("touchmove",(e)=> {
+		document.body.addEventListener("touchmove",(e)=> {// idem si on bouge le doigt sur la surface du canvas
 			if (e.target == this.canvas) {
 				e.preventDefault();
 			}
@@ -54,23 +55,24 @@ class Signature
 
 		this.canvas.addEventListener("touchstart",(e)=> {
 			this.mousePos = this.getTouchPos(e);
-			let touch = e.touches[0];
+			const touch = e.touches[0];
       this.compteur++;
+      //this.boolean = true;
       sessionStorage.setItem('this.compteur',this.compteur);
-    //  sessionStorage.setItem('this.drawing',this.drawing);
-			let mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
+  //    sessionStorage.setItem('this.boolean',this.boolean);
+			const mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
 				clientX: touch.clientX,
 				clientY: touch.clientY
 			});
 			this.canvas.dispatchEvent(mouseEvent);//que j'envoie a sa cible
 		});
 		this.canvas.addEventListener("touchend",(e)=> {
-			let mouseEvent = new MouseEvent("mouseup", {});
+			const mouseEvent = new MouseEvent("mouseup", {});
 			this.canvas.dispatchEvent(mouseEvent);
 		});
 		this.canvas.addEventListener("touchmove",(e)=> {
-			let touch = e.touches[0];
-			let mouseEvent = new MouseEvent("mousemove", {
+			const touch = e.touches[0];
+			const mouseEvent = new MouseEvent("mousemove", {
 				clientX: touch.clientX,
 				clientY: touch.clientY
 			});
@@ -85,7 +87,7 @@ class Signature
 
 	getMousePos(mouseEvent){ // Renvoie les coordonnées de la position de la souris si on dessine (axe X et Y)
 		if (this.drawing) {
-			let rect = this.canvas.getBoundingClientRect();
+			const rect = this.canvas.getBoundingClientRect();
 			return {
 				x: mouseEvent.clientX - rect.left,
 				y: mouseEvent.clientY - rect.top
@@ -95,16 +97,14 @@ class Signature
 	}
 
 	getTouchPos(touchEvent) { // Renvoie les coordonnées de la position du pad si on dessine (axe X et Y)
-		let rect = this.canvas.getBoundingClientRect();
+		const rect = this.canvas.getBoundingClientRect();
 		return {
 			x: touchEvent.touches[0].clientX - rect.left,
 			y: touchEvent.touches[0].clientY - rect.top
 		};
-
-    console.log(touchEvent);
 	}
 
-	renderCanvas(){ // Rendu du canvas
+	resultCanvas(){ // Rendu du canvas une fois celui ci utilisé
 		if(this.drawing){
 			this.ctx.moveTo(this.lastPos.x, this.lastPos.y);
 			this.ctx.lineTo(this.mousePos.x, this.mousePos.y);
@@ -117,15 +117,7 @@ class Signature
 		this.canvas.width = this.canvas.width;
 		this.ctx.lineWidth = 3;
     this.drawing = false;
-  //  sessionStorage.setItem('this.drawing',this.drawing);
+    sessionStorage.setItem('this.drawing',this.drawing);
 	}
-  /*
-  // test valider avec la touche entrée
-validCanvas(e){
-             let code = e.keyCode; //Selon le navigateur c'est which ou keyCode
-             if (code == 13) { //le code de la touche Entrée
-                 document.getElementById("formulaire").submit();
-             }
-           }
-           */
+
 }

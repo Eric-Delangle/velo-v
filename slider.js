@@ -1,8 +1,8 @@
 // Affichage de l'heure
-let clock = document.getElementById('heure');
+const clock = document.getElementById('heure');
 let tempReel = setInterval (horloge,1000);
   function horloge () {
-    let d = new Date ();
+    const d = new Date ();
     heure.innerHTML = d.toLocaleTimeString();
   }
 // CREATION DU SLIDER
@@ -12,7 +12,6 @@ let tempReel = setInterval (horloge,1000);
 // creation d'un objet Slider
 class Slider
 { // norme
-// creation du constructor (se lance tout seul pas besoin d'appeler la fonction à la fin)
 constructor() {
       this.current = 0; // on definit l'image courante à 0
       this.img = document.getElementsByClassName('slide');
