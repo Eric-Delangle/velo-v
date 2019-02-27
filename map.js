@@ -31,7 +31,6 @@ class Mamap
     this.refresh = document.getElementById('refresh');
     window.addEventListener('load', this.restartChrono());
   }
-
 // Ici je relance mon chrono si un rafraichissement de la page a eu lieu par mégarde pendant une reservation
  restartChrono() {
    if (this.finDecompte != null) {
@@ -47,6 +46,7 @@ class Mamap
     this.reserver.style.display = 'none';
     this.map.style.display = 'none';
   }
+
   if(this.findecompte == null) {
     this.decompte.style.display = "block";
     this.time.innerHTML = "Vous n'avez aucune réservation en cours.";
@@ -86,7 +86,7 @@ class Mamap
 
 statuStation();
 
-      const marker = new google.maps.Marker({
+      let marker = new google.maps.Marker({
         position: elem.position,
         map: map,
         icon: elem.icon,
@@ -96,15 +96,22 @@ statuStation();
                 	color: "#ffffff",
                   fontWeight: "bold"
                 }
-
-       }); // fin de la variable de creation de marker
+              }); // fin de la variable de creation de marker
        markers.push(marker);
 
 // au click sur un marker j'affiche les infos grace a l'objet mestations
   marker.addListener('click', ()=> {
+    /*
+    let icon = marker.icon;
+      console.log(marker.icon);
+      console.log(icon);
+      icon.style.height = "50px";
+      icon.style.width = "50px";
+    */
     if (elem.status === "OPEN") {
-      document.getElementById('stationFermee').innerHTML = "";
+      const etatStation = document.getElementById('etatStation');
       infoStations.style.display = "block";
+      etatStation.innerHTML = "Etat : Ouvert";
       reserver.style.display = 'block';
       marker.currentElem = new Mestations(elem.status, elem.name, elem.address, elem.available_bike_stands, elem.available_bikes);
       marker.currentElem.displayElem();
@@ -117,7 +124,6 @@ statuStation();
       infoStations.style.display = "none";
       etatStation.innerHTML = "Etat : Fermé";
       etatStation.style.color = 'red';
-      console.log(etat);
       reserver.style.display = "none";
     }
   })
