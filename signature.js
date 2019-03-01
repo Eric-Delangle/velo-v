@@ -10,7 +10,6 @@ class Signature
 		this.lastPos = this.mousePos;
 		// Bouton pour effacer et création de la variable du compteur
 		this.effacer = document.getElementById("effacer");
-  //  this.boolean = false;
     this.compteur = 0;
     this.canvasEvents();
   }
@@ -22,9 +21,7 @@ class Signature
       sessionStorage.setItem('this.drawing', this.drawing);
 			this.lastPos = this.getMousePos(e);
       this.compteur++;
-    //  this.boolean = true;
       sessionStorage.setItem('this.compteur',this.compteur);
-      //  sessionStorage.setItem('this.boolean',this.boolean);
 		});
 		this.canvas.addEventListener("mouseup",(e)=> {
 			this.drawing = false;
@@ -57,10 +54,8 @@ class Signature
 			this.mousePos = this.getTouchPos(e);
 			const touch = e.touches[0];
       this.compteur++;
-      //this.boolean = true;
       sessionStorage.setItem('this.compteur',this.compteur);
-  //    sessionStorage.setItem('this.boolean',this.boolean);
-			const mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
+      const mouseEvent = new MouseEvent("mousedown", {// la je crée un objet mouseEvent
 				clientX: touch.clientX,
 				clientY: touch.clientY
 			});
@@ -104,7 +99,7 @@ class Signature
 		};
 	}
 
-	resultCanvas(){ // Rendu du canvas une fois celui ci utilisé
+	resultCanvas(){ // Resultat du canvas une fois celui ci utilisé
 		if(this.drawing){
 			this.ctx.moveTo(this.lastPos.x, this.lastPos.y);
 			this.ctx.lineTo(this.mousePos.x, this.mousePos.y);
