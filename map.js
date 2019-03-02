@@ -57,57 +57,47 @@ class Mamap
 
 // Initialisation de la carte
  initMap() {
-// je definis la position a Lyon
     const lyon = {lat: 45.750000, lng: 4.850000};
-// La carte centree a Lyon
     const map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: lyon
   });
-// maintenant j'appelle les infos de l'api
+  let infowindow = new google.maps.InfoWindow({content:"Vous êtes ici !"});
   ajaxGet("https://api.jcdecaux.com/vls/v1/stations?contract=Lyon&apiKey=7f9b27baaf886205613fd37511619e7599ac0466&callback=initMap",
     function (reponse) {
-// Transforme la reponse en tableau d'objets JavaScript
-     const stations = JSON.parse(reponse);
+     const stations = JSON.parse(reponse);// Transforme la reponse en tableau d'objets JavaScript
      const markers = [];
      stations.forEach((elem)=> { // elem correspond a une station
-// Initialise un marker
-     const statuStation = function initMarkers() {// si je ne met pas ça dans une variable ça marche pas
-// Icone en fonction de l'ouverture ou non de la station
-
-     if (elem.status === "OPEN" && elem.available_bikes > 0) {
-        elem.icon = "images/bike-icon.png";
-      } else if (elem.status === "OPEN" && elem.available_bikes === 0) {
-        elem.icon = "images/pasdevelo.png";
-      } else {
-        elem.icon = "images/ferme.png";
-      }
+     const statuStation = function initMarkers() {
+       if (elem.status === "OPEN" && elem.available_bikes > 0) {
+          elem.icon = "images/bike-icon.png";
+        } else if (elem.status === "OPEN" && elem.available_bikes === 0) {
+          elem.icon = "images/pasdevelo.png";
+        } else {
+          elem.icon = "images/ferme.png";
+        }
     }
-
 statuStation();
 
-      let marker = new google.maps.Marker({
-        position: elem.position,
-        map: map,
-        icon: elem.icon,
-        label:  {
-                	text: String(elem.available_bikes),
-                	fontSize: "10px",
-                	color: "#ffffff",
-                  fontWeight: "bold"
-                }
-              }); // fin de la variable de creation de marker
-       markers.push(marker);
+  let marker = new google.maps.Marker({
+    position: elem.position,
+    map: map,
+    icon: elem.icon,
+    html: infowindow.content,
+    label:  {
+              text: String(elem.available_bikes),
+            	fontSize: "10px",
+            	color: "#ffffff",
+              fontWeight: "bold"
+            }
+}); 
 
-// au click sur un marker j'affiche les infos grace a l'objet mestations
+  markers.push(marker);
+
   marker.addListener('click', ()=> {
-    /*
-    let icon = marker.icon;
-      console.log(marker.icon);
-      console.log(icon);
-      icon.style.height = "50px";
-      icon.style.width = "50px";
-    */
+    infowindow.setContent(marker.html);
+    infowindow.open(map, marker);
+
     if (elem.status === "OPEN") {
       const etatStation = document.getElementById('etatStation');
       infoStations.style.display = "block";
@@ -149,18 +139,15 @@ class Mestations
     this.available_bikes = available_bikes;
     this.reservation = document.getElementById('reservation');
     this.map = document.getElementById('map');
-
-    const reserver = document.getElementById('reserver');
-    const reservation = document.getElementById('reservation');
+    this.reserver = document.getElementById('reserver');
     this.resaVelo();
   }
 
   resaVelo() {
-    const reserver = document.getElementById('reserver');
-      reserver.addEventListener('click', ()=> {
-        reservation.style.display = "block";
-        reserver.style.display = 'none';
-        reserver.currentElem = new Reservation(this.status, this.address, this.name, this.available_bikes);
+      this.reserver.addEventListener('click', ()=> {
+        this.reservation.style.display = "block";
+        this.reserver.style.display = 'none';
+        this.reserver.currentElem = new Reservation(this.status, this.address, this.name, this.available_bikes);
         sessionStorage.setItem('station_status',  this.status);
         sessionStorage.setItem('station_name',  this.name);
         sessionStorage.setItem('station_address',  this.address);
